@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "conda_sphinx_theme"
+dynamic = ["version"]
+description = "Conda theme for Sphinx"
+readme = "README.rst"
+requires-python = ">=3"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Travs Hathaway"},
+]
+classifiers = [
+    "Framework :: Sphinx :: Theme",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Documentation",
+    "Topic :: Documentation :: Sphinx",
+]
+dependencies = [
+    "pydata-sphinx-theme>=0.13.1",
+    "sphinx-favicon",
+]
+
+[project.urls]
+homepage = "https://github.com/conda-incubator/conda-sphinx-theme/"
+repository = "https://github.com/conda-incubator/conda-sphinx-theme"
+
+# http://www.sphinx-doc.org/en/stable/theming.html#distribute-your-theme-as-a-python-package
+[project.entry-points."sphinx.html_themes"]
+conda_sphinx_theme = "conda_sphinx_theme"
+
+[tool.setuptools]
+packages = ["conda_sphinx_theme"]
+zip-safe = false
+
+[tool.setuptools.dynamic]
+version = {attr = "conda_sphinx_theme.__version__"}
+
+[tool.setuptools.package-data]
+conda_sphinx_theme = [
+    "theme.conf",
+    "*.html",
+    "static/css/*.css",
+    "static/*.svg",
+    "static/images/*.ico",
+    "static/js/*.js",
+    "static/font/*.*",
+    "components/*.html",
+]

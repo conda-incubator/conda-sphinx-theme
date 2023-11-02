@@ -1,0 +1,115 @@
+/* rgb #11557c */
+html[data-theme="light"] {
+  --pst-color-primary: hsl(202, 76%, 28%);
+  --pst-color-text-base: rgb(51, 51, 51);
+  --sd-color-primary-text: rgb(250, 250, 250);
+  --pst-color-link: hsl(202, 76%, 25%);
+}
+
+html[data-theme="dark"] {
+  --pst-color-primary: rgb(70, 152, 198);
+  --pst-color-text-base: rgb(250, 250, 250);
+  --sd-color-primary-text: rgb(51, 51, 51);
+  --pst-color-link: hsl(202, 53%, 80%);
+}
+
+:root {
+--pst-color-link-hover: var(--pst-color-secondary);
+}
+
+.sidebar-cheatsheets, .sidebar-donate {
+  margin: 2.75rem 0;
+}
+
+#navbar-icon-links {
+    margin-left: 1.5em;
+}
+
+#navbar-icon-links .nav-link {
+  color: #989898;
+}
+
+#navbar-icon-links .nav-link:hover {
+  color: var(--pst-color-primary);
+}
+
+/** Custom Fonts **/
+
+@font-face {
+  font-family: open-sans;
+  src: url("../fonts/opensans-bolditalic-webfont.woff2") format("woff2");
+  src: url("../fonts/opensans-bolditalic-webfont.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: open-sans;
+  src: url("../fonts/opensans-italic-webfont.woff2") format("woff2");
+  src: url("../fonts/opensans-italic-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: open-sans;
+  src: url("../fonts/opensans-regular-webfont.woff2") format("woff2");
+  src: url("../fonts/opensans-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: open-sans;
+  src: url("../fonts/opensans-bold-webfont.woff2") format("woff2");
+  src: url("../fonts/opensans-bold-webfont.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: nunito;
+  src: url("../fonts/nunito-bolditalic-webfont.woff2") format("woff2");
+  src: url("../fonts/nunito-bolditalic-webfont.woff") format("woff");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: nunito;
+  src: url("../fonts/nunito-italic-webfont.woff2") format("woff2");
+  src: url("../fonts/nunito-italic-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: nunito;
+  src: url("../fonts/nunito-regular-webfont.woff2") format("woff2");
+  src: url("../fonts/nunito-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: nunito;
+  src: url("../fonts/nunito-bold-webfont.woff2") format("woff2");
+  src: url("../fonts/nunito-bold-webfont.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+
+
+html, body {
+    font-family: open-sans, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: nunito, sans-serif;
+}
+/** End Custom Fonts **/
+
+/** Navbar CSS **/
+a.navbar-brand > p.title {
+    margin-left: 0.5em;
+}
