@@ -15,9 +15,9 @@ def set_config_defaults(app):
     # Default logo
     logo = theme.get("logo", {})
     if "image_dark" not in logo:
-        logo["image_dark"] = "_static/conda_logo.svg"
+        logo["image_dark"] = "_static/conda_logo_full.svg"
     if "image_light" not in logo:
-        logo["image_light"] = "_static/conda_logo.svg"
+        logo["image_light"] = "_static/conda_logo_full.svg"
     theme["logo"] = logo
 
     # Default favicon; relies on https://sphinx-favicon.readthedocs.io/en/stable

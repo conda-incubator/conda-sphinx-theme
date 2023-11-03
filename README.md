@@ -1,6 +1,6 @@
 # Conda Sphinx Theme
 
-This is Conda Sphinx Theme. It extends the [PyData Sphinx Theme][pydata-sphinx-theme]
+This is the Conda Sphinx Theme. It extends the [PyData Sphinx Theme][pydata-sphinx-theme]
 project  by adding custom styling.
 
 When creating a conda subproject you can include this theme by changing this

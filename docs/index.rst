@@ -5,7 +5,7 @@ Welcome to Conda Sphinx Theme's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-This is Conda Sphinx Theme. It extends the ``pydata_sphinx_theme``
+This is the Conda Sphinx Theme. It extends the ``pydata_sphinx_theme``
 project https://pydata-sphinx-theme.readthedocs.io/en/stable/ by adding
 custom styling.
 
