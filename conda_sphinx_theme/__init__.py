@@ -41,7 +41,7 @@ def get_html_theme_path():
 def setup(app):
     here = Path(__file__).parent.resolve()
     # Include component templates
-    app.config.templates_path.append(str(here / "components"))
+    app.config.templates_path.append(str(here / "_templates"))
     app.add_html_theme("conda_sphinx_theme", str(here))
     app.connect("builder-inited", set_config_defaults)
     return {'version': __version__, 'parallel_read_safe': True}

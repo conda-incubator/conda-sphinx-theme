@@ -60,28 +60,6 @@ html_theme_options = {
     # - internal: Links point to the internal files as expanded by the `pathto`
     #   template function in Sphinx.
     "navbar_links": "absolute",
-
-    # Navbar icon links
-    "icon_links": [
-        {
-            "name": "GitHub",
-            "url": "https://github.com/conda-incubator/conda-sphinx-theme",
-            "icon": "fa-brands fa-square-github",
-            "type": "fontawesome",
-        },
-        {
-            "name": "Element",
-            "url": "http://bit.ly/conda-chat-room",
-            "icon": "_static/element_logo.svg",
-            "type": "local",
-        },
-        {
-            "name": "Discourse",
-            "url": "https://conda.discourse.group/",
-            "icon": "fa-brands fa-discourse",
-            "type": "fontawesome",
-        },
-    ],
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
