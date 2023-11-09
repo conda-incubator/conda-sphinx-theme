@@ -22,7 +22,6 @@ html[data-theme="dark"] {
   --pst-color-link: hsl(202, 53%, 80%);
   --pst-color-primary: #43b02a;
   --pst-color-primary-highlight: #3c9e26;
-
   --ifm-color-primary-dark: #3c9e26;
   --ifm-color-primary-darker: #399624;
   --ifm-color-primary-darkest: #2f7b1d;
@@ -142,6 +141,10 @@ a.navbar-brand > p.title {
 .text-bg-primary {
     background-color: var(--pst-color-primary) !important;
     color: #fff !important;
+}
+
+.text-small {
+    font-size: 0.875rem;
 }
 
 /** End Bootstrap overrides **/
