@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "conda_sphinx_theme"
 dynamic = ["version"]
 description = "Conda theme for Sphinx"
-readme = "README.rst"
+readme = "README.md"
 requires-python = ">=3"
 license = {file = "LICENSE"}
 authors = [
@@ -43,9 +43,8 @@ conda_sphinx_theme = [
     "theme.conf",
     "*.html",
     "static/css/*.css",
+    "static/fonts/*.*",
     "static/*.svg",
-    "static/images/*.ico",
-    "static/js/*.js",
-    "static/font/*.*",
-    "components/*.html",
+    "static/*.ico",
+    "_templates/*.html",
 ]
