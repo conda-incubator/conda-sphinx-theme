@@ -1,34 +1,14 @@
 /* rgb #11557c */
 html[data-theme="light"] {
-  --pst-color-text-base: rgb(51, 51, 51);
-  --sd-color-primary-text: rgb(250, 250, 250);
-  --pst-color-link: hsl(202, 76%, 25%);
   --pst-color-primary: #348721;
   --pst-color-primary-highlight: #2f7a1e;
-
-  --ifm-color-primary-dark: #2f7a1e;
-  --ifm-color-primary-darker: #2c731c;
-  --ifm-color-primary-darkest: #245e17;
-  --ifm-color-primary-light: #399524;
-  --ifm-color-primary-lighter: #3c9b26;
-  --ifm-color-primary-lightest: #44b02b;
-  --ifm-color-primary-contrast-background: #f0fded;
+  --pst-color-link-hover: var(--pst-color-link);
 }
 
 html[data-theme="dark"] {
-  --pst-color-primary: rgb(70, 152, 198);
-  --pst-color-text-base: rgb(250, 250, 250);
-  --sd-color-primary-text: rgb(51, 51, 51);
-  --pst-color-link: hsl(202, 53%, 80%);
   --pst-color-primary: #43b02a;
   --pst-color-primary-highlight: #3c9e26;
-  --ifm-color-primary-dark: #3c9e26;
-  --ifm-color-primary-darker: #399624;
-  --ifm-color-primary-darkest: #2f7b1d;
-  --ifm-color-primary-light: #4ac22e;
-  --ifm-color-primary-lighter: #4dca30;
-  --ifm-color-primary-lightest: #62d348;
-  --ifm-color-primary-contrast-background: #245e17;
+  --pst-color-link-hover: var(--pst-color-primary);
 }
 
 :root {
@@ -159,3 +139,7 @@ a.navbar-brand > p.title {
 
 
 /** End front page cards **/
+
+a:hover {
+    text-decoration-thickness: 2px;
+}
