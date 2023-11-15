@@ -1,5 +1,6 @@
+==============================================
 Welcome to Conda Sphinx Theme's documentation!
-===================================================
+==============================================
 
 This is the Conda Sphinx Theme. It extends the ``pydata_sphinx_theme``
 project https://pydata-sphinx-theme.readthedocs.io/en/stable/ by adding
@@ -14,8 +15,6 @@ line in your conf.py file
 
 And by including ``conda_sphinx_theme`` as a requirement in your documentation
 installation.
-
-To change the style, edit ``conda_sphinx_theme/static/css/style.css``
 
 Configuration for this demo
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
