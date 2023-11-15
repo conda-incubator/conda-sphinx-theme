@@ -42,27 +42,30 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 html_theme = "conda_sphinx_theme"
 html_theme_options = {
-    "logo": {
-        "text": "conda sphinx theme"
-    },
-    # logo is installed by mpl-sphinx-theme as:
-    # "logo": {"link": "https://matplotlib.org/stable/",
-    #         "image_light": "_static/logo_light.svg",
-    #         "image_dark": "_static/logo_dark.svg"},
-    # if this default is OK, then no need to modify "logo"
-    # collapse_navigation in pydata-sphinx-theme is slow, so skipped for local
-    # and CI builds https://github.com/pydata/pydata-sphinx-theme/pull/386
-    "collapse_navigation": not is_release_build,
     "show_prev_next": False,
-    # Determines the type of links produced in the navigation header:
-    # - absolute: Links point to the URL https://matplotlib.org/...
-    # - server-stable: Links point to top-level of the server /stable/...
-    # - internal: Links point to the internal files as expanded by the `pathto`
-    #   template function in Sphinx.
-    "navbar_links": "absolute",
+    "github_url": "https://github.com/conda-incubator/conda-sphinx-theme",
+    "icon_links": [
+        {
+            "name": "Element",
+            "url": "https://matrix.to/#/#conda:matrix.org",
+            "icon": "_static/element_logo.svg",
+            "type": "local",
+        },
+        {
+            "name": "Discourse",
+            "url": "https://conda.discourse.group/",
+            "icon": "fa-brands fa-discourse",
+            "type": "fontawesome",
+        },
+    ],
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 # html_static_path = ["_static"]
+
+source_suffix = ".rst"
+
+# The master toctree document.
+master_doc = "index"

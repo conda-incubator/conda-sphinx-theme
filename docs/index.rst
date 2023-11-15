@@ -1,10 +1,6 @@
 Welcome to Conda Sphinx Theme's documentation!
 ===================================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-
 This is the Conda Sphinx Theme. It extends the ``pydata_sphinx_theme``
 project https://pydata-sphinx-theme.readthedocs.io/en/stable/ by adding
 custom styling.
@@ -27,3 +23,10 @@ Configuration for this demo
 The full ``conf.py`` is
 
 .. literalinclude:: conf.py
+
+.. toctree::
+   :hidden:
+   :maxdepth: 1
+   :titlesonly:
+
+   example
