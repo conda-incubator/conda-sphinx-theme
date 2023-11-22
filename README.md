@@ -26,7 +26,4 @@ line in your conf.py file
 html_theme = 'conda_sphinx_theme'
 ```
 
-And by including `conda_sphinx_theme` as a requirement in your documentation
-installation.
-
 [pydata-sphinx-theme]: https://pydata-sphinx-theme.readthedocs.io/en/stable/
