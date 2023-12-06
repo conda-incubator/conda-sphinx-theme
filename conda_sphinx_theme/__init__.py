@@ -12,6 +12,13 @@ def set_config_defaults(app):
     if not theme:
         theme = {}
 
+    # Add GoatCounter script
+    if goatcounter_url := theme.get("goatcounter_url"):
+        app.add_js_file(
+            "js/count.js",
+            **{"loading_method": "async", "data-goatcounter": goatcounter_url}
+        )
+
     # Default logo
     logo = theme.get("logo", {})
     if "image_dark" not in logo:
