@@ -43,6 +43,7 @@ conda_sphinx_theme = [
     "theme.conf",
     "*.html",
     "static/css/*.css",
+    "static/js/*.js",
     "static/fonts/*.*",
     "static/*.svg",
     "static/*.ico",
