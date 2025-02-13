@@ -30,6 +30,7 @@ jobs:
           environment-file: docs/environment.yml
           python-version: '3.11'
           auto-activate-base: false
+          channels: conda-forge
 
       - name: Build Documentation
         run: |
