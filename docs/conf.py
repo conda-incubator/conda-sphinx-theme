@@ -1,6 +1,7 @@
 import os
 import time
 import datetime
+from importlib.metadata import version as get_version
 # Configuration file for the Sphinx documentation builder for
 # conda projects.
 
@@ -21,6 +22,9 @@ copyright = (
 )
 author = "conda-incubator"
 
+release: str = get_version("conda_sphinx_theme")
+# for example take major/minor
+version: str = ".".join(release.split('.')[:2])
 
 # -- General configuration ---------------------------------------------------
 
