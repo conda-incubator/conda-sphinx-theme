@@ -47,9 +47,9 @@ html_theme_options = {
     "goatcounter_url": "",  # Disabled by default; put your own GoatCounter URL here to enable
     "icon_links": [
         {
-            "name": "Element",
-            "url": "https://matrix.to/#/#conda:matrix.org",
-            "icon": "_static/element_logo.svg",
+            "name": "Zulip",
+            "url": "https://conda.zulipchat.com",
+            "icon": "_static/zulip_logo.svg",
             "type": "local",
         },
         {
