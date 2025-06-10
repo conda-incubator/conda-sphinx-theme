@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=64", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -35,8 +35,8 @@ conda_sphinx_theme = "conda_sphinx_theme"
 packages = ["conda_sphinx_theme"]
 zip-safe = false
 
-[tool.setuptools.dynamic]
-version = {attr = "conda_sphinx_theme.__version__"}
+[tool.setuptools_scm]
+version_file = "conda_sphinx_theme/_version.py"
 
 [tool.setuptools.package-data]
 conda_sphinx_theme = [

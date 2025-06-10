@@ -30,6 +30,7 @@ jobs:
           environment-file: docs/environment.yml
           python-version: '3.11'
           auto-activate-base: false
+          channels: conda-forge
 
       - name: Build Documentation
         run: |
@@ -61,4 +62,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
