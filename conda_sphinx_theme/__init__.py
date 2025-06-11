@@ -16,7 +16,7 @@ def set_config_defaults(app):
     if goatcounter_url := theme.get("goatcounter_url"):
         app.add_js_file(
             "js/count.js",
-            **{"loading_method": "async", "data-goatcounter": goatcounter_url}
+            **{"loading_method": "async", "data-goatcounter": goatcounter_url},
         )
 
     # Default logo
@@ -29,9 +29,7 @@ def set_config_defaults(app):
 
     # Default favicon; relies on https://sphinx-favicon.readthedocs.io/en/stable
     favicons = theme.get("favicons", [])
-    favicons.append(
-        {"href": "favicon.ico", "rel": "icon", "type": "image/svg+xml"}
-    )
+    favicons.append({"href": "favicon.ico", "rel": "icon", "type": "image/svg+xml"})
     theme["favicons"] = favicons
 
     # Update the HTML theme config
@@ -51,4 +49,4 @@ def setup(app):
     app.config.templates_path.append(str(here / "_templates"))
     app.add_html_theme("conda_sphinx_theme", str(here))
     app.connect("builder-inited", set_config_defaults)
-    return {'version': __version__, 'parallel_read_safe': True}
+    return {"version": __version__, "parallel_read_safe": True}
