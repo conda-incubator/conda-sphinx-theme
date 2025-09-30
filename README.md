@@ -89,4 +89,15 @@ version_anchor_format = "release-{version}"    # Creates anchors like "release-2
 version_anchor_format = "{version}"            # Creates anchors like "25.5.0" (not recommended for HTML4/XHTML)
 ```
 
+## Development
+
+**Quick start:**
+
+```bash
+pip install -e .           # Install theme for development
+cd docs && make html       # Build documentation
+```
+
+For full development environment setup, testing, and contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
 [pydata-sphinx-theme]: https://pydata-sphinx-theme.readthedocs.io/en/stable/

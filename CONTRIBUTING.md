@@ -1,12 +1,12 @@
 # Contributing
 
-The conda-sphinx-theme is a community maintained project. We welcome contributions in the form of bug reports,
-documentation, code, design proposals, and more.
+We welcome contributions! Please see the [Development and Testing](README.md#development-and-testing) section in the README for setup instructions.
 
-## Installing the theme itself:
+**Quick Start:**
 
-To install the theme and begin developing locally, run the following command in an isolated environment:
+```bash
+pixi run dev    # Setup development environment
+pixi run test   # Run tests
+```
 
-`python -m pip install -e .`
-
-After that you will be able to build the docs locally by doing `make html` in the `docs` directory.
+Build docs: `make html` in the `docs/` directory.
