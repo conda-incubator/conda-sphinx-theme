@@ -1,0 +1,64 @@
+# Pre-commit configuration for conda-sphinx-theme
+# Using prec (Rust-based pre-commit) for fast execution
+repos:
+  # Ruff for fast Python linting and formatting
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.1
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^(conda_sphinx_theme|tests)/.*\.py$
+      - id: ruff-format
+        files: ^(conda_sphinx_theme|tests)/.*\.py$
+
+  # Type checking with ty (Astral's fast type checker)
+  - repo: local
+    hooks:
+      - id: ty-check
+        name: Type check with ty
+        entry: pixi run -e dev ty check conda_sphinx_theme/
+        language: system
+        files: ^conda_sphinx_theme/.*\.py$
+        pass_filenames: false
+        always_run: false
+
+  # Built-in hooks for general file hygiene
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: ^docs/.*$
+      - id: end-of-file-fixer
+        exclude: ^docs/.*$
+      - id: check-yaml
+        args: [--unsafe]  # Allow custom YAML tags
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+
+  # Additional Python-specific checks
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: v1.10.0
+    hooks:
+      - id: python-check-blanket-noqa
+        exclude: ^docs/.*$  # Sphinx configs often have blanket noqa
+      - id: python-check-blanket-type-ignore
+      - id: python-no-log-warn
+      - id: python-use-type-annotations
+
+default_install_hook_types: [pre-commit, pre-push]
+default_stages: [pre-commit]
+
+# Configuration for prec-specific optimizations
+ci:
+  autofix_commit_msg: |
+    [pre-commit.ci] auto fixes from pre-commit hooks
+
+    for more information, see https://pre-commit.ci
+  autofix_prs: true
+  autoupdate_branch: ''
+  autoupdate_commit_msg: '[pre-commit.ci] pre-commit autoupdate'
+  autoupdate_schedule: weekly
+  skip: []
+  submodules: false
