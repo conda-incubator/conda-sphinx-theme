@@ -16,7 +16,7 @@ def set_config_defaults(app: Sphinx) -> None:
     app.builder.theme_options = theme = getattr(app.builder, "theme_options") or {}
 
     # Default github_url
-    theme["github_url"] = github_url = theme.get("github_url") or "https://github.com/conda/conda"
+    theme["github_url"] = theme.get("github_url") or "https://github.com/conda/conda"
 
     # Default zulip_url
     theme["zulip_url"] = zulip_url = theme.get("zulip_url") or "https://conda.zulipchat.com"
