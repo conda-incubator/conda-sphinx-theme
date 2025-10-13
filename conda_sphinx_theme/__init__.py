@@ -29,12 +29,6 @@ def set_config_defaults(app: Sphinx) -> None:
     icon_links.extend(
         (
             {
-                "name": "GitHub",
-                "url": github_url,
-                "icon": "fa-brands fa-square-github",
-                "type": "fontawesome",
-            },
-            {
                 "name": "Zulip",
                 "url": zulip_url,
                 "icon": "_static/zulip_logo.svg",

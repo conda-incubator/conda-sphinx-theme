@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3"
 license = {file = "LICENSE"}
 authors = [
-    {name = "Travs Hathaway"},
+    {name = "Anaconda, Inc."},
 ]
 classifiers = [
     "Framework :: Sphinx :: Theme",
