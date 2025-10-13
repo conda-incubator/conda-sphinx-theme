@@ -20,9 +20,9 @@ project = "Conda Sphinx Theme"
 copyright = "2023 conda-incubator"
 author = "Anaconda, Inc."
 
-release = get_version("conda_sphinx_theme")
+release: str = get_version("conda_sphinx_theme")
 # for example take major/minor
-version = ".".join(release.split('.')[:2])
+version: str = ".".join(release.split('.')[:2])
 
 # -- General configuration ---------------------------------------------------
 
