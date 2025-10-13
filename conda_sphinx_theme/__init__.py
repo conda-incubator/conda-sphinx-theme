@@ -12,36 +12,27 @@ if TYPE_CHECKING:
 
 
 def set_config_defaults(app: Sphinx) -> None:
-    """Set default logo in theme options."""
-    app.builder.theme_options = theme = getattr(app.builder, "theme_options") or {}
+    """Set default theme options."""
+    # Get theme options
+    app.builder.theme_options = theme = {
+        **app.builder.theme.get_options(),  # theme.conf
+        **app.builder.theme_options,  # conf.py's html_theme_options
+    }
 
-    # Default github_url
-    theme["github_url"] = theme.get("github_url") or "https://github.com/conda/conda"
-
-    # Default zulip_url
-    theme["zulip_url"] = zulip_url = theme.get("zulip_url") or "https://conda.zulipchat.com"
-
-    # Default discourse_url
-    theme["discourse_url"] = discourse_url = theme.get("discourse_url") or "https://conda.discourse.group/"
-
-    # Default icon_links
+    # Add icon links based on configured URLs
+    # Note: Since we insert at the beginning, we add the links in reverse order
     theme["icon_links"] = icon_links = theme.get("icon_links") or []
-    icon_links.extend(
-        (
-            {
-                "name": "Zulip",
-                "url": zulip_url,
-                "icon": "_static/zulip_logo.svg",
-                "type": "local",
-            },
-            {
-                "name": "Discourse",
-                "url": discourse_url,
-                "icon": "fa-brands fa-discourse",
-                "type": "fontawesome",
-            },
-        )
-    )
+    for key, name, icon, type in (
+        ("discourse_url", "Discourse", "fa-brands fa-discourse", "fontawesome"),
+        ("zulip_url", "Zulip", "_static/zulip_logo.svg", "local"),
+    ):
+        if url := theme.get(key):
+            icon_links.insert(0, {
+                "name": name,
+                "url": url,
+                "icon": icon,
+                "type": type,
+            })
 
     # Add GoatCounter script
     if goatcounter_url := theme.get("goatcounter_url"):
