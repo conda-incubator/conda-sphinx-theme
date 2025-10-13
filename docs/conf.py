@@ -2,15 +2,12 @@ from __future__ import annotations
 
 from datetime import datetime, timezone
 import os
-import sys
 import time
 from importlib.metadata import version as get_version
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from typing import Final
-
-sys.path.insert(0, os.path.abspath(".."))
 
 # Configuration file for the Sphinx documentation builder for
 # conda projects.
