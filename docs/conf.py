@@ -48,25 +48,7 @@ html_theme = "conda_sphinx_theme"
 html_theme_options = {
     "show_prev_next": False,
     "github_url": "https://github.com/conda-incubator/conda-sphinx-theme",
-    "goatcounter_url": "",  # Disabled by default; put your own GoatCounter URL here to enable
-    "icon_links": [
-        {
-            "name": "Zulip",
-            "url": "https://conda.zulipchat.com",
-            "icon": "_static/zulip_logo.svg",
-            "type": "local",
-        },
-        {
-            "name": "Discourse",
-            "url": "https://conda.discourse.group/",
-            "icon": "fa-brands fa-discourse",
-            "type": "fontawesome",
-        },
-    ],
-}
-
-html_context = {
-    "goatcounter_dashboard_url": ""  # Link to your GoatCounter dashboard
+    "goatcounter_url": None,  # Disabled by default; put your own GoatCounter URL here to enable
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
