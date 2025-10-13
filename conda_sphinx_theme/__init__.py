@@ -19,12 +19,15 @@ def set_config_defaults(app: Sphinx) -> None:
         **app.builder.theme_options,  # conf.py's html_theme_options
     }
 
+    # Add custom icons
+    app.add_js_file("js/custom-icons.js")
+
     # Add icon links based on configured URLs
     # Note: Since we insert at the beginning, we add the links in reverse order
     theme["icon_links"] = icon_links = theme.get("icon_links") or []
     for key, name, icon, type in (
         ("discourse_url", "Discourse", "fa-brands fa-discourse", "fontawesome"),
-        ("zulip_url", "Zulip", "_static/zulip_logo.svg", "local"),
+        ("zulip_url", "Zulip", "fa-custom fa-zulip", "fontawesome"),
     ):
         if url := theme.get(key):
             icon_links.insert(0, {
