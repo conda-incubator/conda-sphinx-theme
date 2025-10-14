@@ -18,7 +18,7 @@ build_date = datetime.fromtimestamp(timestamp, timezone.utc)
 
 project = "Conda Sphinx Theme"
 copyright = "2023 conda-incubator"
-author = "Anaconda, Inc."
+author = "conda-incubator"
 
 release: str = get_version("conda_sphinx_theme")
 # for example take major/minor
