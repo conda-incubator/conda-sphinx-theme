@@ -54,14 +54,17 @@ def set_config_defaults(app: Sphinx) -> None:
     favicons.append({"href": "favicon.ico", "rel": "icon", "type": "image/svg+xml"})
 
 
+def get_html_theme_path() -> list[str]:
+    """Return list of HTML theme paths."""
+    return [str(Path(__file__).parent.parent.resolve())]
+
+
 # For more details, see:
 # https://www.sphinx-doc.org/en/master/development/theming.html#distribute-your-theme-as-a-python-package
 def setup(app: Sphinx) -> dict[str, Any]:
+    here = Path(__file__).parent.resolve()
     # Include component templates
-    theme_path = Path(__file__).parent.resolve()
-    app.config.templates_path.append(str(theme_path / "_templates"))
-    app.add_html_theme("conda_sphinx_theme", str(theme_path))
-
-    # Initialize theme options
+    app.config.templates_path.append(str(here / "_templates"))
+    app.add_html_theme("conda_sphinx_theme", str(here))
     app.connect("builder-inited", set_config_defaults)
     return {"version": __version__, "parallel_read_safe": True}
