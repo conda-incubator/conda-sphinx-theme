@@ -2,7 +2,7 @@ name: conda-sphinx-theme
 channels:
   - conda-forge
 dependencies:
-  - pydata-sphinx-theme >= 0.13.1
+  - pydata-sphinx-theme >= 0.15
   - sphinx-favicon
   - python
   - pip
