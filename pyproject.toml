@@ -162,7 +162,7 @@ lint = "ruff check conda_sphinx_theme/ tests/"
 lint-fix = "ruff check --fix conda_sphinx_theme/ tests/"
 type-check = "ty check conda_sphinx_theme/"
 # Documentation
-docs-build = { cmd = "sphinx-build docs docs/_build/html", env = { PIXI_ENVIRONMENT_NAME = "docs" } }
+docs-build = { cmd = "sphinx-build -b dirhtml docs docs/_build/dirhtml", env = { PIXI_ENVIRONMENT_NAME = "docs" } }
 docs-live = { cmd = "sphinx-autobuild docs docs/_build/html --open-browser", env = { PIXI_ENVIRONMENT_NAME = "docs" } }
 docs-clean = "rm -rf docs/_build"
 # Git hooks

@@ -1,3 +1,9 @@
+# DEPRECATED: This environment file is no longer used by the project.
+# The documentation build now uses pixi. See the README for instructions.
+# To build docs: pixi run docs-build
+# To run live server: pixi run docs-live
+#
+# This file is kept for backwards compatibility only.
 name: conda-sphinx-theme
 channels:
   - conda-forge
