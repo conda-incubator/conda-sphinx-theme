@@ -110,7 +110,7 @@ dev = "python -c \"print('Development environment ready')\""
 test = "python -m pytest"
 test-fast = "python -m pytest --no-cov"
 
-[tool.pixi.feature.test.pypi-dependencies]
+[tool.pixi.feature.test.dependencies]
 pytest = ">=8.0.0"
 pytest-cov = ">=7.0.0"
 pytest-mock = ">=3.10.0"
