@@ -18,30 +18,20 @@ concurrency:
 jobs:
   docs:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash -el {0}
     steps:
       - uses: actions/checkout@v4
 
-      - uses: conda-incubator/setup-miniconda@v2
+      - name: Setup pixi
+        uses: prefix-dev/setup-pixi@28eb668aafebd9dede9d97c4ba1cd9989a4d0004 # v0.9.2
         with:
-          activate-environment: conda-sphinx-theme
-          environment-file: docs/environment.yml
-          python-version: '3.11'
-          auto-activate-base: false
-          channels: conda-forge
+          environments: docs
 
       - name: Build Documentation
-        run: |
-          pip install -e .
-          cd docs
-          make dirhtml
+        run: pixi run --environment docs docs-build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
           path: 'docs/_build/dirhtml'
 
   pages:
