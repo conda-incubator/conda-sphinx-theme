@@ -1,5 +1,5 @@
 try:
-    from ._version import version_tuple as version_info, __version__  # noqa: F401
+    from ._version import version_tuple as version_info, __version__  # noqa: F401, type: ignore[import-not-found]
 except ImportError:
     # Version file not generated yet (e.g., in editable install before build)
     __version__ = "0.0.0+unknown"
