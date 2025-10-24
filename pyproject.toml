@@ -58,7 +58,7 @@ addopts = [
     "--cov-report=term-missing",
     "--cov-report=xml",
     "--cov-branch",
-    "--cov-fail-under=33",
+    "--cov-fail-under=90",
     "-v"
 ]
 markers = [
@@ -98,12 +98,9 @@ channels = ["conda-forge", "https://conda.anaconda.org/conda-forge/label/ty_alph
 platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
 
 [tool.pixi.dependencies]
-python = ">=3.9"
-# Development tools
+# Shared base dependencies that work across all Python versions
 pytest = ">=8.0.0"
-pytest-cov = ">=7.0.0"
 pytest-mock = ">=3.10.0"
-sphinx = ">=8.0.0"
 docutils = ">=0.21.0"
 ruff = "*"
 ty = "*"
@@ -111,6 +108,45 @@ prek = "*"
 
 [tool.pixi.pypi-dependencies]
 conda-sphinx-theme = { path = ".", editable = true }
+
+# Test feature with version-specific test dependencies
+[tool.pixi.feature.test.dependencies]
+pytest-cov = ">=6.0.0"  # Use 6.x for compatibility with Python 3.9
+
+# Development feature with Python 3.13+ and modern Sphinx
+[tool.pixi.feature.dev.dependencies]
+python = ">=3.13"
+sphinx = ">=8.0.0"
+pytest-cov = ">=7.0.0"
+
+# Python version-specific features (only specify Python version)
+[tool.pixi.feature.py39.dependencies]
+python = "3.9.*"
+sphinx = ">=7.0.0,<8.0.0"  # Sphinx 7.x supports Python 3.9
+
+[tool.pixi.feature.py310.dependencies]
+python = "3.10.*"
+sphinx = ">=8.0.0,<8.2.0"  # Sphinx 8.0-8.1 supports Python 3.10
+
+[tool.pixi.feature.py311.dependencies]
+python = "3.11.*"
+sphinx = ">=8.0.0"
+
+[tool.pixi.feature.py312.dependencies]
+python = "3.12.*"
+sphinx = ">=8.0.0"
+
+[tool.pixi.feature.py313.dependencies]
+python = "3.13.*"
+sphinx = ">=8.0.0"
+
+[tool.pixi.environments]
+default = ["dev"]
+test-py39 = ["test", "py39"]
+test-py310 = ["test", "py310"]
+test-py311 = ["test", "py311"]
+test-py312 = ["test", "py312"]
+test-py313 = ["test", "py313"]
 
 [tool.pixi.tasks]
 # Testing
