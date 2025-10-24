@@ -119,6 +119,10 @@ python = ">=3.13"
 sphinx = ">=8.0.0"
 pytest-cov = ">=7.0.0"
 
+# Documentation feature
+[tool.pixi.feature.docs.dependencies]
+sphinx-autobuild = "*"
+
 # Python version-specific features (only specify Python version)
 [tool.pixi.feature.py39.dependencies]
 python = "3.9.*"
@@ -142,6 +146,7 @@ sphinx = ">=8.0.0"
 
 [tool.pixi.environments]
 default = ["dev"]
+docs = ["dev", "docs"]
 test-py39 = ["test", "py39"]
 test-py310 = ["test", "py310"]
 test-py311 = ["test", "py311"]
@@ -156,11 +161,15 @@ test-fast = "python -m pytest --no-cov"
 lint = "ruff check conda_sphinx_theme/ tests/"
 lint-fix = "ruff check --fix conda_sphinx_theme/ tests/"
 type-check = "ty check conda_sphinx_theme/"
+# Documentation
+docs-build = { cmd = "sphinx-build docs docs/_build/html", env = { PIXI_ENVIRONMENT_NAME = "docs" } }
+docs-live = { cmd = "sphinx-autobuild docs docs/_build/html --open-browser", env = { PIXI_ENVIRONMENT_NAME = "docs" } }
+docs-clean = "rm -rf docs/_build"
 # Git hooks
 hooks-install = "prek install"
 hooks-run = "prek run"
 hooks-update = "prek autoupdate"
 # Cleanup
-clean = "rm -rf .pytest_cache htmlcov .coverage coverage.xml build/ dist/ *.egg-info/"
+clean = "rm -rf .pytest_cache htmlcov .coverage coverage.xml build/ dist/ *.egg-info/ docs/_build"
 # CI pipeline
 ci = { depends-on = ["lint", "type-check", "test"] }

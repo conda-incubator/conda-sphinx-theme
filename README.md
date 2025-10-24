@@ -89,4 +89,64 @@ version_anchor_format = "release-{version}"    # Creates anchors like "release-2
 version_anchor_format = "{version}"            # Creates anchors like "25.5.0" (not recommended for HTML4/XHTML)
 ```
 
+## Development
+
+This project uses [pixi](https://pixi.sh) for development and dependency management.
+
+### Setup
+
+```bash
+# Install pixi (if not already installed)
+curl -fsSL https://pixi.sh/install.sh | bash
+
+# Install all environments
+pixi install --all
+```
+
+### Available Commands
+
+**Testing:**
+
+```bash
+pixi run test          # Run tests with coverage
+pixi run test-fast     # Run tests without coverage
+pixi run ci            # Run full CI pipeline (lint + type-check + test)
+```
+
+**Documentation:**
+
+```bash
+pixi run docs-build    # Build documentation
+pixi run docs-live     # Build docs with live reload (opens browser)
+pixi run docs-clean    # Clean build artifacts
+```
+
+**Code Quality:**
+
+```bash
+pixi run lint          # Check code with ruff
+pixi run lint-fix      # Fix auto-fixable issues
+pixi run type-check    # Check types with ty
+```
+
+**Git Hooks:**
+
+```bash
+pixi run hooks-install # Install pre-commit hooks
+pixi run hooks-run     # Run hooks manually
+pixi run hooks-update  # Update hook versions
+```
+
+### Testing Multiple Python Versions
+
+The project supports Python 3.9-3.13 with version-specific environments:
+
+```bash
+pixi run --environment test-py39 test
+pixi run --environment test-py310 test
+pixi run --environment test-py311 test
+pixi run --environment test-py312 test
+pixi run --environment test-py313 test
+```
+
 [pydata-sphinx-theme]: https://pydata-sphinx-theme.readthedocs.io/en/stable/
