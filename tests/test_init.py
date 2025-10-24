@@ -189,4 +189,3 @@ def test_set_config_defaults_handles_none_theme_options(mocker):
     assert app.builder.theme_options is not None
     assert "logo" in app.builder.theme_options
     assert "favicons" in app.builder.theme_options
-

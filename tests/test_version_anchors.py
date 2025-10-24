@@ -324,4 +324,3 @@ def test_config_validation_empty_result(mocker):
 
     # This should pass - spaces are allowed
     validate_config(app, config)
-
