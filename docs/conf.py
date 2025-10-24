@@ -1,7 +1,8 @@
+from datetime import datetime, timezone
 import os
 import time
-import datetime
 from importlib.metadata import version as get_version
+
 # Configuration file for the Sphinx documentation builder for
 # conda projects.
 
@@ -10,16 +11,13 @@ is_release_build = tags.has('release')  # noqa
 
 # Parse year using SOURCE_DATE_EPOCH, falling back to current time.
 # https://reproducible-builds.org/specs/source-date-epoch/
-build_date = datetime.datetime.utcfromtimestamp(
-    int(os.environ.get('SOURCE_DATE_EPOCH', time.time()))
-)
+timestamp = int(os.environ.get('SOURCE_DATE_EPOCH', time.time()))
+build_date = datetime.fromtimestamp(timestamp, timezone.utc)
 
 # -- Project information -----------------------------------------------------
 
 project = "Conda Sphinx Theme"
-copyright = (
-    f"2023 conda-incubator"
-)
+copyright = "2023 conda-incubator"
 author = "conda-incubator"
 
 release: str = get_version("conda_sphinx_theme")
@@ -48,25 +46,7 @@ html_theme = "conda_sphinx_theme"
 html_theme_options = {
     "show_prev_next": False,
     "github_url": "https://github.com/conda-incubator/conda-sphinx-theme",
-    "goatcounter_url": "",  # Disabled by default; put your own GoatCounter URL here to enable
-    "icon_links": [
-        {
-            "name": "Zulip",
-            "url": "https://conda.zulipchat.com",
-            "icon": "_static/zulip_logo.svg",
-            "type": "local",
-        },
-        {
-            "name": "Discourse",
-            "url": "https://conda.discourse.group/",
-            "icon": "fa-brands fa-discourse",
-            "type": "fontawesome",
-        },
-    ],
-}
-
-html_context = {
-    "goatcounter_dashboard_url": ""  # Link to your GoatCounter dashboard
+    "goatcounter_url": None,  # Disabled by default; put your own GoatCounter URL here to enable
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
