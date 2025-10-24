@@ -47,8 +47,6 @@ repos:
       - id: python-no-log-warn
       - id: python-use-type-annotations
 
-default_install_hook_types: [pre-commit, pre-push]
-default_stages: [pre-commit]
 
 # Configuration for prec-specific optimizations
 ci:
