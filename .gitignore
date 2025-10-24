@@ -160,3 +160,4 @@ cython_debug/
 #.idea/
 
 conda_sphinx_theme/_version.py
+.pixi

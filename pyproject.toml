@@ -94,7 +94,7 @@ precision = 2
 directory = "htmlcov"
 
 [tool.pixi.workspace]
-channels = ["conda-forge"]
+channels = ["conda-forge", "https://conda.anaconda.org/conda-forge/label/ty_alpha"]
 platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
 
 [tool.pixi.dependencies]
@@ -135,7 +135,7 @@ pre-commit-update = "pre-commit autoupdate"
 [tool.pixi.feature.dev.dependencies]
 prek = "*"
 ruff = "*"
-ty = { version = "*", channel = "conda-forge/label/ty_alpha" }
+ty = "*"
 
 [tool.pixi.environments]
 default = []
