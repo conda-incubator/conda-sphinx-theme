@@ -4,5 +4,6 @@ channels:
 dependencies:
   - pydata-sphinx-theme >= 0.15
   - sphinx-favicon
+  - sphinx-autobuild
   - python
   - pip

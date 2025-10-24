@@ -52,11 +52,6 @@ def set_config_defaults(app: Sphinx) -> None:
     favicons.append({"href": "favicon.ico", "rel": "icon", "type": "image/svg+xml"})
 
 
-def get_html_theme_path():
-    """Return list of HTML theme paths."""
-    return [str(Path(__file__).parent.parent.resolve())]
-
-
 # For more details, see:
 # https://www.sphinx-doc.org/en/master/development/theming.html#distribute-your-theme-as-a-python-package
 def setup(app):
