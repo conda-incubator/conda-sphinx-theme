@@ -7,7 +7,7 @@ name = "conda_sphinx_theme"
 dynamic = ["version"]
 description = "Conda theme for Sphinx"
 readme = "README.md"
-requires-python = ">=3"
+requires-python = ">=3.9"
 license = {file = "LICENSE"}
 authors = [
     {name = "Travs Hathaway"},
@@ -19,7 +19,7 @@ classifiers = [
     "Topic :: Documentation :: Sphinx",
 ]
 dependencies = [
-    "pydata-sphinx-theme>=0.13.1,<0.16.0",
+    "pydata-sphinx-theme>=0.15",
     "sphinx-favicon",
 ]
 
@@ -49,3 +49,82 @@ conda_sphinx_theme = [
     "static/*.ico",
     "_templates/*.html",
 ]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = [
+    "--cov=conda_sphinx_theme",
+    "--cov-report=html",
+    "--cov-report=term-missing",
+    "--cov-report=xml",
+    "--cov-branch",
+    "--cov-fail-under=44",
+    "-v"
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+]
+
+[tool.coverage.run]
+source = ["conda_sphinx_theme"]
+branch = true
+omit = [
+    "*/tests/*",
+    "*/_version.py",
+    "*/setup.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+show_missing = true
+precision = 2
+
+[tool.coverage.html]
+directory = "htmlcov"
+
+[tool.pixi.workspace]
+channels = ["conda-forge", "https://conda.anaconda.org/conda-forge/label/ty_alpha"]
+platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
+
+[tool.pixi.dependencies]
+python = ">=3.9"
+# Development tools
+pytest = ">=8.0.0"
+pytest-cov = ">=7.0.0"
+pytest-mock = ">=3.10.0"
+sphinx = ">=8.0.0"
+docutils = ">=0.21.0"
+ruff = "*"
+ty = "*"
+prek = "*"
+
+[tool.pixi.pypi-dependencies]
+conda-sphinx-theme = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+# Testing
+test = "python -m pytest"
+test-fast = "python -m pytest --no-cov"
+# Linting and type checking
+lint = "ruff check conda_sphinx_theme/ tests/"
+lint-fix = "ruff check --fix conda_sphinx_theme/ tests/"
+type-check = "ty check conda_sphinx_theme/"
+# Git hooks
+hooks-install = "prek install"
+hooks-run = "prek run"
+hooks-update = "prek autoupdate"
+# Cleanup
+clean = "rm -rf .pytest_cache htmlcov .coverage coverage.xml build/ dist/ *.egg-info/"
+# CI pipeline
+ci = { depends-on = ["lint", "type-check", "test"] }

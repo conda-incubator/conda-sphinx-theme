@@ -28,4 +28,5 @@ The full ``conf.py`` is
    :maxdepth: 1
    :titlesonly:
 
+   nested_example/index
    example
