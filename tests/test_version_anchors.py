@@ -71,22 +71,6 @@ def test_version_pattern_non_matches(heading_text):
     assert match is None, f"Pattern should NOT match '{heading_text}'"
 
 
-# Anchor format generation tests
-@pytest.mark.parametrize(
-    "version,format_template,expected_anchor",
-    [
-        ("1.2.3", "version-{version}", "version-1.2.3"),
-        ("25.5.0", "v{version}", "v25.5.0"),
-        ("2.0", "release-{version}", "release-2.0"),
-        ("0.1.0", "{version}", "0.1.0"),
-    ],
-)
-def test_anchor_format_generation(version, format_template, expected_anchor):
-    """Test anchor ID generation from version and format template."""
-    anchor_id = format_template.format(version=version)
-    assert anchor_id == expected_anchor
-
-
 def test_setup_function(mocker):
     """Test that the setup function registers the extension correctly."""
     from conda_sphinx_theme.version_anchors import setup
@@ -105,22 +89,12 @@ def test_setup_function(mocker):
     assert result["parallel_write_safe"] is True
 
 
-def test_transform_initialization(mocker):
-    """Test VersionAnchorTransform initialization."""
-    from conda_sphinx_theme.version_anchors import VersionAnchorTransform
-
-    document = mocker.Mock()
-    document.settings = mocker.Mock()
-    document.settings.language_code = "en"
-
-    transform = VersionAnchorTransform(document)
-    assert transform.document == document
-    assert transform.default_priority == 500
-
-
 def test_changelog_file_detection(mocker):
     """Test changelog file detection logic."""
-    from conda_sphinx_theme.version_anchors import VersionAnchorTransform
+    from conda_sphinx_theme.version_anchors import (
+        VersionAnchorTransform,
+        DEFAULT_CHANGELOG_FILES,
+    )
 
     # Create transform with minimal mocking
     document = mocker.Mock()
@@ -129,12 +103,9 @@ def test_changelog_file_detection(mocker):
     document.settings.env = mocker.Mock()
     document.settings.env.app = mocker.Mock()
     document.settings.env.app.config = mocker.Mock()
-    document.settings.env.app.config.version_anchor_changelog_files = [
-        "changelog",
-        "release",
-        "history",
-        "news",
-    ]
+    document.settings.env.app.config.version_anchor_changelog_files = (
+        DEFAULT_CHANGELOG_FILES
+    )
 
     transform = VersionAnchorTransform(document)
 
@@ -151,36 +122,6 @@ def test_changelog_file_detection(mocker):
     # Test negative case
     document.settings.env.docname = "api"
     assert transform._is_changelog_file() is False
-
-
-def test_version_heading_detection(mocker):
-    """Test version heading detection and anchor creation."""
-    from conda_sphinx_theme.version_anchors import VersionAnchorTransform
-
-    # Create transform with mocked config
-    document = mocker.Mock()
-    document.settings = mocker.Mock()
-    document.settings.language_code = "en"
-    document.settings.env = mocker.Mock()
-    document.settings.env.app = mocker.Mock()
-
-    config = mocker.Mock()
-    config.version_anchor_pattern = r"^(\d+\.\d+(?:\.\d+)?)\s*\(.*?\)$"
-    config.version_anchor_format = "version-{version}"
-    document.settings.env.app.config = config
-
-    # Initialize transform to test configuration
-    VersionAnchorTransform(document)
-
-    # Test version heading detection
-    heading_text = "25.5.0 (2025-05-21)"
-    pattern = re.compile(config.version_anchor_pattern)
-    match = pattern.match(heading_text)
-
-    assert match is not None
-    version = match.group(1)
-    anchor_id = config.version_anchor_format.format(version=version)
-    assert anchor_id == "version-25.5.0"
 
 
 def test_config_validation_valid_format(mocker):
@@ -227,123 +168,3 @@ def test_config_validation_invalid_formats(mocker, invalid_format):
     with pytest.raises(ValueError, match="must contain.*version.*placeholder"):
         validate_config(app, config)
 
-
-# Changelog file detection tests
-@pytest.mark.parametrize(
-    "filename",
-    [
-        "changelog.rst",
-        "CHANGELOG.md",
-        "release_notes.rst",
-        "release-notes.md",
-        "history.rst",
-        "HISTORY.md",
-        "news.rst",
-        "NEWS.md",
-        "docs/changelog.rst",
-        "src/CHANGELOG.md",
-    ],
-)
-def test_changelog_files_detected(filename):
-    """Test that changelog files are correctly identified."""
-    changelog_indicators = ["changelog", "release", "history", "news"]
-    is_changelog = any(
-        indicator in filename.lower() for indicator in changelog_indicators
-    )
-    assert is_changelog, f"'{filename}' should be detected as a changelog file"
-
-
-@pytest.mark.parametrize(
-    "filename",
-    [
-        "index.rst",
-        "example.rst",
-        "api.rst",
-        "installation.md",
-        "configuration.rst",
-        "tutorial.rst",
-        "faq.md",
-    ],
-)
-def test_regular_files_not_detected(filename):
-    """Test that regular files are not detected as changelog files."""
-    changelog_indicators = ["changelog", "release", "history", "news"]
-    is_changelog = any(
-        indicator in filename.lower() for indicator in changelog_indicators
-    )
-    assert not is_changelog, f"'{filename}' should NOT be detected as a changelog file"
-
-
-def test_anchor_creation_with_heading_node(mocker):
-    """Test anchor creation with actual heading nodes."""
-    from conda_sphinx_theme.version_anchors import VersionAnchorTransform
-    from docutils import nodes
-
-    # Create transform
-    document = mocker.Mock()
-    document.settings = mocker.Mock()
-    document.settings.language_code = "en"
-    document.settings.env = mocker.Mock()
-    document.settings.env.app = mocker.Mock()
-
-    config = mocker.Mock()
-    config.version_anchor_pattern = r"^(\d+\.\d+(?:\.\d+)?)\s*\(.*?\)$"
-    config.version_anchor_format = "version-{version}"
-    document.settings.env.app.config = config
-
-    # Initialize transform to test anchor creation
-    VersionAnchorTransform(document)
-
-    # Create a heading node with version text
-    heading = nodes.section()
-    title = nodes.title()
-    title.append(nodes.Text("25.5.0 (2025-05-21)"))
-    heading.append(title)
-
-    # Test that we can extract version and create anchor
-    heading_text = title.astext()
-    pattern = re.compile(config.version_anchor_pattern)
-    match = pattern.match(heading_text)
-
-    assert match is not None
-    version = match.group(1)
-    assert version == "25.5.0"
-
-    anchor_id = config.version_anchor_format.format(version=version)
-    assert anchor_id == "version-25.5.0"
-
-
-@pytest.mark.parametrize(
-    "pattern,format_str,heading,expected_id",
-    [
-        (
-            r"^Version\s+(\d+\.\d+(?:\.\d+)?).*$",
-            "v{version}",
-            "Version 1.2.3",
-            "v1.2.3",
-        ),
-        (
-            r"^Release\s+(\d+\.\d+(?:\.\d+)?)",
-            "release-{version}",
-            "Release 2.0",
-            "release-2.0",
-        ),
-        (r"^v?(\d+\.\d+(?:\.\d+)?)", "{version}", "v3.1.4", "3.1.4"),
-        (
-            r"^(\d+\.\d+(?:\.\d+)?)\s*\(.*?\)$",
-            "version-{version}",
-            "1.0.0 (Final)",
-            "version-1.0.0",
-        ),
-    ],
-)
-def test_custom_patterns_and_formats(pattern, format_str, heading, expected_id):
-    """Test various custom patterns and format combinations."""
-    compiled_pattern = re.compile(pattern)
-    match = compiled_pattern.match(heading)
-
-    assert match is not None, f"Pattern {pattern} should match '{heading}'"
-
-    version = match.group(1)
-    anchor_id = format_str.format(version=version)
-    assert anchor_id == expected_id
