@@ -134,10 +134,8 @@ pre-commit-update = "pre-commit autoupdate"
 
 [tool.pixi.feature.dev.dependencies]
 prek = "*"
-
-[tool.pixi.feature.dev.pypi-dependencies]
 ruff = "*"
-ty = "*"
+ty = { version = "*", channel = "conda-forge/label/ty_alpha" }
 
 [tool.pixi.environments]
 default = []
