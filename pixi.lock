@@ -609,10 +609,10 @@ packages:
   timestamp: 1733218222191
 - pypi: ./
   name: conda-sphinx-theme
-  version: 0.3.1.dev6+g2c8f7910b.d20251024
-  sha256: 786499ddf006e8e686b1fc25de76d4f15a5c37c6bdb5dc4ba90b322c8390b037
+  version: 0.3.1.dev9+g5295513f3
+  sha256: 4dab9ff33f2ca996227631f7abf0c9a0babbdf055013ceaf29e0030b2ab3a18c
   requires_dist:
-  - pydata-sphinx-theme>=0.13.1,<0.16.0
+  - pydata-sphinx-theme>=0.15
   - sphinx-favicon
   requires_python: '>=3.9'
   editable: true
