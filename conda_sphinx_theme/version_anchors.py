@@ -41,7 +41,12 @@ from docutils.transforms import Transform
 
 if TYPE_CHECKING:
     from sphinx.application import Sphinx
-    from sphinx.config import Config
+
+
+# Default configuration values
+DEFAULT_VERSION_PATTERN = r"^(\d+\.\d+(?:\.\d+)?)\s*\(.*?\)$"
+DEFAULT_ANCHOR_FORMAT = "version-{version}"
+DEFAULT_CHANGELOG_FILES = ["changelog", "release", "history", "news"]
 
 
 class VersionAnchorTransform(Transform):
@@ -166,21 +171,21 @@ def setup(app: Sphinx):
     # Add configuration values
     app.add_config_value(
         "version_anchor_pattern",
-        r"^(\d+\.\d+(?:\.\d+)?)\s*\(.*?\)$",  # Default pattern
+        DEFAULT_VERSION_PATTERN,
         "env",  # Rebuild environment when this changes
         [str],  # Expected type
     )
 
     app.add_config_value(
         "version_anchor_format",
-        "version-{version}",  # Default format template
+        DEFAULT_ANCHOR_FORMAT,
         "env",  # Rebuild environment when this changes
         [str],  # Expected type
     )
 
     app.add_config_value(
         "version_anchor_changelog_files",
-        ["changelog", "release", "history", "news"],  # Default file indicators
+        DEFAULT_CHANGELOG_FILES,
         "env",  # Rebuild environment when this changes
         [list],  # Expected type
     )
