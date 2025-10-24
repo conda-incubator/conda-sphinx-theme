@@ -7,15 +7,15 @@ and automatically assigns them anchor IDs using a configurable format.
 Configuration in conf.py:
 
     # Pattern to match version headings (must have exactly one capture group for the version)
-    version_anchor_pattern = r"^(\d+\.\d+(?:\.\d+)?)\s*\(.*?\)$"  # Default
+    version_anchor_pattern = r"^(\\d+\\.\\d+(?:\\.\\d+)?)\\s*\\(.*?\\)$"  # Default
 
     # Format template for anchor IDs (use {version} as placeholder)
     version_anchor_format = "version-{version}"  # Default
 
     # Alternative patterns you might want to use:
-    # version_anchor_pattern = r"^Version\s+(\d+\.\d+(?:\.\d+)?).*$"  # For "Version 1.2.3" format
-    # version_anchor_pattern = r"^Release\s+(\d+\.\d+(?:\.\d+)?)"    # For "Release 1.2.3" format
-    # version_anchor_pattern = r"^v?(\d+\.\d+(?:\.\d+)?)"           # For "v1.2.3" or "1.2.3" format
+    # version_anchor_pattern = r"^Version\\s+(\\d+\\.\\d+(?:\\.\\d+)?).*$"  # For "Version 1.2.3" format
+    # version_anchor_pattern = r"^Release\\s+(\\d+\\.\\d+(?:\\.\\d+)?)"    # For "Release 1.2.3" format
+    # version_anchor_pattern = r"^v?(\\d+\\.\\d+(?:\\.\\d+)?)"           # For "v1.2.3" or "1.2.3" format
 
     # Alternative anchor formats you might want to use:
     # version_anchor_format = "v{version}"           # Creates anchors like "v25.5.0"
