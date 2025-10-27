@@ -151,15 +151,19 @@ test-fast = "python -m pytest --no-cov"
 lint = "ruff check conda_sphinx_theme/ tests/"
 lint-fix = "ruff check --fix conda_sphinx_theme/ tests/"
 type-check = "ty check conda_sphinx_theme/"
-# Documentation
-docs-build = { cmd = "sphinx-build -b dirhtml docs docs/_build/dirhtml", env = { PIXI_ENVIRONMENT_NAME = "docs" } }
-docs-live = { cmd = "sphinx-autobuild docs docs/_build/html --open-browser", env = { PIXI_ENVIRONMENT_NAME = "docs" } }
-docs-clean = "rm -rf docs/_build"
 # Git hooks
 hooks-install = "prek install"
 hooks-run = "prek run"
 hooks-update = "prek autoupdate"
-# Cleanup
-clean = "rm -rf .pytest_cache htmlcov .coverage coverage.xml build/ dist/ *.egg-info/ docs/_build"
 # CI pipeline
 ci = { depends-on = ["lint", "type-check", "test"] }
+
+[tool.pixi.feature.docs.tasks]
+# Documentation
+docs-build = { cmd = "sphinx-build -b dirhtml docs docs/_build/dirhtml" }
+docs-live = { cmd = "sphinx-autobuild docs docs/_build/html --open-browser" }
+docs-clean = "rm -rf docs/_build"
+
+[tool.pixi.tasks.clean]
+cmd = "rm -rf .pytest_cache htmlcov .coverage coverage.xml build/ dist/ *.egg-info/"
+depends-on = ["docs-clean"]
