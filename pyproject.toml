@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.9"
 license = {file = "LICENSE"}
 authors = [
-    {name = "Travs Hathaway"},
+    {name = "Travis Hathaway"},
 ]
 classifiers = [
     "Framework :: Sphinx :: Theme",
@@ -76,16 +76,15 @@ omit = [
 
 [tool.coverage.report]
 exclude_lines = [
-    "pragma: no cover",
-    "def __repr__",
-    "if self.debug:",
-    "if settings.DEBUG",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if 0:",
-    "if __name__ == .__main__.:",
-    "class .*\\bProtocol\\):",
-    "@(abc\\.)?abstractmethod",
+  "pragma: no cover",
+  "pragma: py$PYTHON_MAJOR_VERSION no cover",
+  "pragma: $TEST_PLATFORM no cover",
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "if __name__ == .__main__.:",
+  "def __repr__",
+  '\s*\.\.\.$',
+  "if TYPE_CHECKING:",  # ignoring type checking imports
 ]
 show_missing = true
 precision = 2
