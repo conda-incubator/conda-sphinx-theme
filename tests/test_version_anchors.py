@@ -9,23 +9,6 @@ import re
 import pytest
 
 
-# Test fixtures
-@pytest.fixture
-def mock_config(mocker):
-    """Fixture providing a mock Sphinx app config with default values."""
-    from conda_sphinx_theme.version_anchors import (
-        DEFAULT_VERSION_PATTERN,
-        DEFAULT_ANCHOR_FORMAT,
-        DEFAULT_CHANGELOG_FILES,
-    )
-
-    config = mocker.Mock()
-    config.version_anchor_pattern = DEFAULT_VERSION_PATTERN
-    config.version_anchor_format = DEFAULT_ANCHOR_FORMAT
-    config.version_anchor_changelog_files = DEFAULT_CHANGELOG_FILES
-    return config
-
-
 # Pattern matching tests using the actual extension's default pattern
 @pytest.mark.parametrize(
     "heading_text,expected_version",
