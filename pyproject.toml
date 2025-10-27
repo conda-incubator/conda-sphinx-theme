@@ -58,7 +58,7 @@ addopts = [
     "--cov-report=term-missing",
     "--cov-report=xml",
     "--cov-branch",
-    "--cov-fail-under=44",
+    "--cov-fail-under=85",
     "-v"
 ]
 markers = [
@@ -98,12 +98,10 @@ channels = ["conda-forge", "https://conda.anaconda.org/conda-forge/label/ty_alph
 platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
 
 [tool.pixi.dependencies]
-python = ">=3.9"
-# Development tools
+# Shared base dependencies that work across all Python versions
 pytest = ">=8.0.0"
-pytest-cov = ">=7.0.0"
+pytest-cov = ">=6.0.0"
 pytest-mock = ">=3.10.0"
-sphinx = ">=8.0.0"
 docutils = ">=0.21.0"
 ruff = "*"
 ty = "*"
@@ -111,6 +109,39 @@ prek = "*"
 
 [tool.pixi.pypi-dependencies]
 conda-sphinx-theme = { path = ".", editable = true }
+
+# Development feature with Python 3.13+
+[tool.pixi.feature.dev.dependencies]
+python = ">=3.13"
+
+# Documentation feature
+[tool.pixi.feature.docs.dependencies]
+sphinx-autobuild = "*"
+
+# Python version-specific features
+[tool.pixi.feature.py39.dependencies]
+python = "3.9.*"
+
+[tool.pixi.feature.py310.dependencies]
+python = "3.10.*"
+
+[tool.pixi.feature.py311.dependencies]
+python = "3.11.*"
+
+[tool.pixi.feature.py312.dependencies]
+python = "3.12.*"
+
+[tool.pixi.feature.py313.dependencies]
+python = "3.13.*"
+
+[tool.pixi.environments]
+default = ["dev"]
+docs = ["dev", "docs"]
+test-py39 = ["py39"]
+test-py310 = ["py310"]
+test-py311 = ["py311"]
+test-py312 = ["py312"]
+test-py313 = ["py313"]
 
 [tool.pixi.tasks]
 # Testing
@@ -124,7 +155,15 @@ type-check = "ty check conda_sphinx_theme/"
 hooks-install = "prek install"
 hooks-run = "prek run"
 hooks-update = "prek autoupdate"
-# Cleanup
-clean = "rm -rf .pytest_cache htmlcov .coverage coverage.xml build/ dist/ *.egg-info/"
 # CI pipeline
 ci = { depends-on = ["lint", "type-check", "test"] }
+
+[tool.pixi.feature.docs.tasks]
+# Documentation
+docs-build = { cmd = "sphinx-build -b dirhtml docs docs/_build/dirhtml" }
+docs-live = { cmd = "sphinx-autobuild docs docs/_build/html --open-browser" }
+docs-clean = "rm -rf docs/_build"
+
+[tool.pixi.tasks.clean]
+cmd = "rm -rf .pytest_cache htmlcov .coverage coverage.xml build/ dist/ *.egg-info/"
+depends-on = ["docs-clean"]
