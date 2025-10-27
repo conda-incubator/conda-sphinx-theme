@@ -25,11 +25,11 @@ def set_config_defaults(app: Sphinx) -> None:
     # Note: Since we insert at the beginning, we add the links in reverse order
     theme["icon_links"] = icon_links = theme.get("icon_links") or []
     add_custom_icons = False
-    for key, name, icon, type, default in (
-        ("discourse_url", "Discourse", "fa-brands fa-discourse", "fontawesome", "https://conda.discourse.group/"),
-        ("zulip_url", "Zulip", "fa-custom fa-zulip", "fontawesome", "https://conda.zulipchat.com"),
+    for key, default_url, name, icon, type in (
+        ("discourse_url", "https://conda.discourse.group/", "Discourse", "fa-brands fa-discourse", "fontawesome"),
+        ("zulip_url", "https://conda.zulipchat.com/", "Zulip", "fa-custom fa-zulip", "fontawesome"),
     ):
-        if url := theme.get(key, default):
+        if url := theme.get(key, default_url):
             icon_links.insert(0, {
                 "name": name,
                 "url": url,
