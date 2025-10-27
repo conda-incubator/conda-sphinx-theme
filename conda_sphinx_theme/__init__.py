@@ -7,7 +7,7 @@ from pydata_sphinx_theme.utils import get_theme_options_dict
 
 try:
     from ._version import version_tuple as version_info, __version__  # noqa: F401  # ty: ignore[unresolved-import]
-except ImportError:
+except ImportError:  # pragma: no cover
     # Version file not generated yet (e.g., in editable install before build)
     __version__ = "0.0.0+unknown"
     version_info = (0, 0, 0)
