@@ -46,7 +46,8 @@ def set_config_defaults(app: Sphinx) -> None:
     if goatcounter_url := theme.get("goatcounter_url"):
         app.add_js_file(
             "js/count.js",
-            **{"loading_method": "async", "data-goatcounter": goatcounter_url},
+            loading_method="async",
+            **{"data-goatcounter": goatcounter_url},
         )
 
     # Default logo
