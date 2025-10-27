@@ -3,6 +3,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
+from pytdata_sphinx_theme.utils import get_theme_options_dict
+
 try:
     from ._version import version_tuple as version_info, __version__  # noqa: F401  # ty: ignore[unresolved-import]
 except ImportError:
@@ -17,10 +19,7 @@ if TYPE_CHECKING:
 def set_config_defaults(app: Sphinx) -> None:
     """Set default theme options."""
     # Get theme options
-    app.builder.theme_options = theme = {
-        **app.builder.theme.get_options(),  # theme.conf
-        **app.builder.theme_options,  # conf.py's html_theme_options
-    }
+    theme = get_theme_options_dict(app)
 
     # Add custom icons
     app.add_js_file("js/custom-icons.js")
@@ -28,11 +27,11 @@ def set_config_defaults(app: Sphinx) -> None:
     # Add icon links based on configured URLs
     # Note: Since we insert at the beginning, we add the links in reverse order
     theme["icon_links"] = icon_links = theme.get("icon_links") or []
-    for key, name, icon, type in (
-        ("discourse_url", "Discourse", "fa-brands fa-discourse", "fontawesome"),
-        ("zulip_url", "Zulip", "fa-custom fa-zulip", "fontawesome"),
+    for key, name, icon, type, default in (
+        ("discourse_url", "Discourse", "fa-brands fa-discourse", "fontawesome", "https://conda.discourse.group/"),
+        ("zulip_url", "Zulip", "fa-custom fa-zulip", "fontawesome", "https://conda.zulipchat.com"),
     ):
-        if url := theme.get(key):
+        if url := theme.get(key, default):
             icon_links.insert(0, {
                 "name": name,
                 "url": url,
