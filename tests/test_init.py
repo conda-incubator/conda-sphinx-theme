@@ -55,6 +55,8 @@ def test_set_config_defaults_with_goatcounter(mocker):
     app = mocker.Mock()
     app.builder = mocker.Mock()
     app.builder.theme_options = {
+        "zulip_url": None,  # override default
+        "discourse_url": None,  # override default
         "goatcounter_url": "https://example.goatcounter.com/count"
     }
 
@@ -75,7 +77,11 @@ def test_set_config_defaults_without_goatcounter(mocker):
     # Mock app without GoatCounter URL
     app = mocker.Mock()
     app.builder = mocker.Mock()
-    app.builder.theme_options = {}
+    app.builder.theme_options = {
+        "zulip_url": None,  # override default
+        "discourse_url": None,  # override default
+        "goatcounter_url": None,  # no goatcounter URL
+    }
 
     # Call the function
     set_config_defaults(app)
