@@ -3,7 +3,12 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from ._version import __version__
+try:
+    from ._version import version_tuple as version_info, __version__  # noqa: F401  # ty: ignore[unresolved-import]
+except ImportError:
+    # Version file not generated yet (e.g., in editable install before build)
+    __version__ = "0.0.0+unknown"
+    version_info = (0, 0, 0)
 
 if TYPE_CHECKING:
     from sphinx.application import Sphinx
