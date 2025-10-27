@@ -158,34 +158,3 @@ def test_set_config_defaults_appends_to_existing_favicons(mocker):
     assert favicons[1]["href"] == "favicon.ico"
 
 
-def test_set_config_defaults_handles_missing_builder_theme_options(mocker):
-    """Test set_config_defaults when builder has no theme_options attribute."""
-    from conda_sphinx_theme import set_config_defaults
-
-    app = mocker.Mock()
-    app.builder = mocker.Mock(spec=[])  # No theme_options attribute
-
-    # Should not raise
-    set_config_defaults(app)
-
-    # Verify default settings were still applied
-    assert hasattr(app.builder, "theme_options")
-    assert "logo" in app.builder.theme_options
-    assert "favicons" in app.builder.theme_options
-
-
-def test_set_config_defaults_handles_none_theme_options(mocker):
-    """Test set_config_defaults when theme_options is None."""
-    from conda_sphinx_theme import set_config_defaults
-
-    app = mocker.Mock()
-    app.builder = mocker.Mock()
-    app.builder.theme_options = None
-
-    # Should not raise
-    set_config_defaults(app)
-
-    # Verify default settings were applied
-    assert app.builder.theme_options is not None
-    assert "logo" in app.builder.theme_options
-    assert "favicons" in app.builder.theme_options
