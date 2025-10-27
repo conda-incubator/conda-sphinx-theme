@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from pytdata_sphinx_theme.utils import get_theme_options_dict
+from pydata_sphinx_theme.utils import get_theme_options_dict
 
 try:
     from ._version import version_tuple as version_info, __version__  # noqa: F401  # ty: ignore[unresolved-import]
@@ -21,12 +21,10 @@ def set_config_defaults(app: Sphinx) -> None:
     # Get theme options
     theme = get_theme_options_dict(app)
 
-    # Add custom icons
-    app.add_js_file("js/custom-icons.js")
-
     # Add icon links based on configured URLs
     # Note: Since we insert at the beginning, we add the links in reverse order
     theme["icon_links"] = icon_links = theme.get("icon_links") or []
+    add_custom_icons = False
     for key, name, icon, type, default in (
         ("discourse_url", "Discourse", "fa-brands fa-discourse", "fontawesome", "https://conda.discourse.group/"),
         ("zulip_url", "Zulip", "fa-custom fa-zulip", "fontawesome", "https://conda.zulipchat.com"),
@@ -38,6 +36,11 @@ def set_config_defaults(app: Sphinx) -> None:
                 "icon": icon,
                 "type": type,
             })
+            add_custom_icons |= "fa-custom" in icon
+
+    # Add custom icons
+    if add_custom_icons:
+        app.add_js_file("js/custom-icons.js")
 
     # Add GoatCounter script
     if goatcounter_url := theme.get("goatcounter_url"):
