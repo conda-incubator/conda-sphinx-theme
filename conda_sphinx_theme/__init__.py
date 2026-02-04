@@ -17,6 +17,9 @@ def set_config_defaults(app):
     if not theme:
         theme = {}
 
+    # Add custom Zulip icon
+    app.add_js_file("js/zulip-icon.js")
+
     # Add GoatCounter script
     if goatcounter_url := theme.get("goatcounter_url"):
         app.add_js_file(
