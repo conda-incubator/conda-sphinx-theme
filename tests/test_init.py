@@ -47,6 +47,22 @@ def test_setup_function(mocker):
     assert result["parallel_read_safe"] is True
 
 
+def test_set_config_defaults_adds_zulip_icon(mocker):
+    """Test that set_config_defaults adds Zulip icon JavaScript."""
+    from conda_sphinx_theme import set_config_defaults
+
+    # Mock app
+    app = mocker.Mock()
+    app.builder = mocker.Mock()
+    app.builder.theme_options = {}
+
+    # Call the function
+    set_config_defaults(app)
+
+    # Verify Zulip icon script was added
+    app.add_js_file.assert_called_once_with("js/zulip-icon.js")
+
+
 def test_set_config_defaults_with_goatcounter(mocker):
     """Test set_config_defaults with GoatCounter URL."""
     from conda_sphinx_theme import set_config_defaults
@@ -61,11 +77,12 @@ def test_set_config_defaults_with_goatcounter(mocker):
     # Call the function
     set_config_defaults(app)
 
-    # Verify GoatCounter script was added
-    app.add_js_file.assert_called_once()
-    call_args = app.add_js_file.call_args
-    assert call_args[0][0] == "js/count.js"
-    assert call_args[1]["data-goatcounter"] == "https://example.goatcounter.com/count"
+    # Verify GoatCounter script was added with correct parameters
+    calls = [call for call in app.add_js_file.call_args_list 
+             if len(call[0]) > 0 and call[0][0] == "js/count.js"]
+    assert len(calls) == 1
+    assert calls[0][1]["data-goatcounter"] == "https://example.goatcounter.com/count"
+    assert calls[0][1]["loading_method"] == "async"
 
 
 def test_set_config_defaults_without_goatcounter(mocker):
@@ -81,7 +98,9 @@ def test_set_config_defaults_without_goatcounter(mocker):
     set_config_defaults(app)
 
     # Verify GoatCounter script was NOT added
-    app.add_js_file.assert_not_called()
+    calls = [call for call in app.add_js_file.call_args_list 
+             if len(call[0]) > 0 and call[0][0] == "js/count.js"]
+    assert len(calls) == 0
 
 
 def test_set_config_defaults_adds_logo(mocker):
