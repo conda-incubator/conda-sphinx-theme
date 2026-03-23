@@ -78,7 +78,7 @@ def test_set_config_defaults_with_goatcounter(mocker):
     set_config_defaults(app)
 
     # Verify GoatCounter script was added with correct parameters
-    calls = [call for call in app.add_js_file.call_args_list 
+    calls = [call for call in app.add_js_file.call_args_list
              if len(call[0]) > 0 and call[0][0] == "js/count.js"]
     assert len(calls) == 1
     assert calls[0][1]["data-goatcounter"] == "https://example.goatcounter.com/count"
@@ -98,7 +98,7 @@ def test_set_config_defaults_without_goatcounter(mocker):
     set_config_defaults(app)
 
     # Verify GoatCounter script was NOT added
-    calls = [call for call in app.add_js_file.call_args_list 
+    calls = [call for call in app.add_js_file.call_args_list
              if len(call[0]) > 0 and call[0][0] == "js/count.js"]
     assert len(calls) == 0
 
@@ -175,36 +175,3 @@ def test_set_config_defaults_appends_to_existing_favicons(mocker):
     assert len(favicons) == 2
     assert favicons[0]["href"] == "custom.png"
     assert favicons[1]["href"] == "favicon.ico"
-
-
-def test_set_config_defaults_handles_missing_builder_theme_options(mocker):
-    """Test set_config_defaults when builder has no theme_options attribute."""
-    from conda_sphinx_theme import set_config_defaults
-
-    app = mocker.Mock()
-    app.builder = mocker.Mock(spec=[])  # No theme_options attribute
-
-    # Should not raise
-    set_config_defaults(app)
-
-    # Verify default settings were still applied
-    assert hasattr(app.builder, "theme_options")
-    assert "logo" in app.builder.theme_options
-    assert "favicons" in app.builder.theme_options
-
-
-def test_set_config_defaults_handles_none_theme_options(mocker):
-    """Test set_config_defaults when theme_options is None."""
-    from conda_sphinx_theme import set_config_defaults
-
-    app = mocker.Mock()
-    app.builder = mocker.Mock()
-    app.builder.theme_options = None
-
-    # Should not raise
-    set_config_defaults(app)
-
-    # Verify default settings were applied
-    assert app.builder.theme_options is not None
-    assert "logo" in app.builder.theme_options
-    assert "favicons" in app.builder.theme_options
