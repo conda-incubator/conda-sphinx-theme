@@ -1,3 +1,7 @@
+from pathlib import Path
+
+from pydata_sphinx_theme.utils import get_theme_options_dict
+
 try:
     from ._version import version_tuple as version_info, __version__  # noqa: F401  # ty: ignore[unresolved-import]
 except ImportError:
@@ -5,17 +9,10 @@ except ImportError:
     __version__ = "0.0.0+unknown"
     version_info = (0, 0, 0)
 
-from pathlib import Path
-
 
 def set_config_defaults(app):
     """Set default logo in theme options."""
-    try:
-        theme = app.builder.theme_options
-    except AttributeError:
-        theme = None
-    if not theme:
-        theme = {}
+    theme = get_theme_options_dict(app)
 
     # Add custom Zulip icon
     app.add_js_file("js/zulip-icon.js")
@@ -39,9 +36,6 @@ def set_config_defaults(app):
     favicons = theme.get("favicons", [])
     favicons.append({"href": "favicon.ico", "rel": "icon", "type": "image/svg+xml"})
     theme["favicons"] = favicons
-
-    # Update the HTML theme config
-    app.builder.theme_options = theme
 
 
 # For more details, see:
