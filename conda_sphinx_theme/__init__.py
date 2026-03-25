@@ -12,7 +12,7 @@ except ImportError:  # pragma: no cover
 
 def set_config_defaults(app):
     """Inject additional default theme options and icon links."""
-    theme = get_theme_options_dict(app)
+    theme = get_theme_options_dict(app) or {}
 
     # Add extra icon links entries if there were shortcuts present
     # See https://github.com/pydata/pydata-sphinx-theme/blob/6b426bb133812c69b33ce88913f8bc018f1bfd02/src/pydata_sphinx_theme/__init__.py#L141-L163
@@ -54,6 +54,9 @@ def set_config_defaults(app):
     favicons = theme.get("favicons", [])
     favicons.append({"href": "favicon.ico", "rel": "icon", "type": "image/svg+xml"})
     theme["favicons"] = favicons
+
+    # Update the HTML theme config
+    app.builder.theme_options = theme
 
 
 # For more details, see:
