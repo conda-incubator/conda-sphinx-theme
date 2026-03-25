@@ -185,7 +185,7 @@ def test_set_config_defaults_appends_to_existing_favicons(mocker):
     assert favicons[0]["href"] == "custom.png"
     assert favicons[1]["href"] == "favicon.ico"
 
-    
+
 def test_set_config_defaults_handles_missing_builder_theme_options(mocker):
     """Test set_config_defaults when builder has no theme_options attribute."""
     from conda_sphinx_theme import set_config_defaults
