@@ -1,6 +1,6 @@
 try:
     from ._version import version_tuple as version_info, __version__  # noqa: F401  # ty: ignore[unresolved-import]
-except ImportError:
+except ImportError:  # pragma: no cover
     # Version file not generated yet (e.g., in editable install before build)
     __version__ = "0.0.0+unknown"
     version_info = (0, 0, 0)
@@ -9,13 +9,31 @@ from pathlib import Path
 
 
 def set_config_defaults(app):
-    """Set default logo in theme options."""
+    """Inject additional default theme options and icon links."""
     try:
         theme = app.builder.theme_options
     except AttributeError:
         theme = None
     if not theme:
         theme = {}
+
+    # Add extra icon links entries if there were shortcuts present
+    # See https://github.com/pydata/pydata-sphinx-theme/blob/6b426bb133812c69b33ce88913f8bc018f1bfd02/src/pydata_sphinx_theme/__init__.py#L141-L163
+    icon_links = []
+    for key, default_url, icon, name in [
+        ("zulip_url", "https://conda.zulipchat.com/", "fa-custom fa-zulip", "Zulip"),
+    ]:
+        # Skip link if URL is falsy
+        if url := theme.get(key, default_url):
+            icon_links.append(
+                {
+                    "url": url,
+                    "icon": icon,
+                    "name": name,
+                    "type": "fontawesome",
+                },
+            )
+    theme["icon_links"] = [*icon_links, *(theme.get("icon_links") or [])]
 
     # Add custom Zulip icon
     app.add_js_file("js/zulip-icon.js")

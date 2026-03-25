@@ -2,6 +2,15 @@
 Tests for the main conda_sphinx_theme module.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+import pytest
+
+if TYPE_CHECKING:
+    from typing import Literal, Optional
+
 
 def test_module_imports():
     """Test that the main module can be imported without errors."""
@@ -78,7 +87,7 @@ def test_set_config_defaults_with_goatcounter(mocker):
     set_config_defaults(app)
 
     # Verify GoatCounter script was added with correct parameters
-    calls = [call for call in app.add_js_file.call_args_list 
+    calls = [call for call in app.add_js_file.call_args_list
              if len(call[0]) > 0 and call[0][0] == "js/count.js"]
     assert len(calls) == 1
     assert calls[0][1]["data-goatcounter"] == "https://example.goatcounter.com/count"
@@ -98,7 +107,7 @@ def test_set_config_defaults_without_goatcounter(mocker):
     set_config_defaults(app)
 
     # Verify GoatCounter script was NOT added
-    calls = [call for call in app.add_js_file.call_args_list 
+    calls = [call for call in app.add_js_file.call_args_list
              if len(call[0]) > 0 and call[0][0] == "js/count.js"]
     assert len(calls) == 0
 
@@ -208,3 +217,34 @@ def test_set_config_defaults_handles_none_theme_options(mocker):
     assert app.builder.theme_options is not None
     assert "logo" in app.builder.theme_options
     assert "favicons" in app.builder.theme_options
+
+@pytest.mark.parametrize(
+    "zulip_url",
+    [
+        pytest.param(None, id="unset"),
+        pytest.param(False, id="falsy"),
+        pytest.param("https://custom.url.com", id="truthy"),
+    ]
+)
+def test_set_config_defaults_adds_icon_links(mocker, zulip_url: Optional[str | Literal[False]]):
+    """Test that set_config_defaults adds icon links."""
+    from conda_sphinx_theme import set_config_defaults
+
+    app = mocker.Mock()
+    app.builder = mocker.Mock()
+    app.builder.theme_options = theme_options = {}
+
+    if zulip_url is not None:
+        theme_options["zulip_url"] = zulip_url
+
+    set_config_defaults(app)
+
+    # Verify icon links were added
+    icon_links = app.builder.theme_options["icon_links"]
+    if zulip_url is False:
+        assert not icon_links
+    else:
+        assert len(icon_links) == 1
+        assert icon_links[0]["name"] == "Zulip"
+    if zulip_url:
+        assert icon_links[0]["url"] == zulip_url
