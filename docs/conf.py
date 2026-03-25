@@ -49,14 +49,6 @@ html_theme_options = {
     "show_prev_next": False,
     "github_url": "https://github.com/conda-incubator/conda-sphinx-theme",
     "goatcounter_url": "",  # Disabled by default; put your own GoatCounter URL here to enable
-    "icon_links": [
-        {
-            "name": "Zulip",
-            "url": "https://conda.zulipchat.com",
-            "icon": "fa-custom fa-zulip",
-            "type": "fontawesome",
-        },
-    ],
 }
 
 html_context = {

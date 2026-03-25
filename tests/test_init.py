@@ -2,6 +2,15 @@
 Tests for the main conda_sphinx_theme module.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+import pytest
+
+if TYPE_CHECKING:
+    from typing import Literal, Optional
+
 
 def test_module_imports():
     """Test that the main module can be imported without errors."""
@@ -175,3 +184,67 @@ def test_set_config_defaults_appends_to_existing_favicons(mocker):
     assert len(favicons) == 2
     assert favicons[0]["href"] == "custom.png"
     assert favicons[1]["href"] == "favicon.ico"
+
+    
+def test_set_config_defaults_handles_missing_builder_theme_options(mocker):
+    """Test set_config_defaults when builder has no theme_options attribute."""
+    from conda_sphinx_theme import set_config_defaults
+
+    app = mocker.Mock()
+    app.builder = mocker.Mock(spec=[])  # No theme_options attribute
+
+    # Should not raise
+    set_config_defaults(app)
+
+    # Verify default settings were still applied
+    assert hasattr(app.builder, "theme_options")
+    assert "logo" in app.builder.theme_options
+    assert "favicons" in app.builder.theme_options
+
+
+def test_set_config_defaults_handles_none_theme_options(mocker):
+    """Test set_config_defaults when theme_options is None."""
+    from conda_sphinx_theme import set_config_defaults
+
+    app = mocker.Mock()
+    app.builder = mocker.Mock()
+    app.builder.theme_options = None
+
+    # Should not raise
+    set_config_defaults(app)
+
+    # Verify default settings were applied
+    assert app.builder.theme_options is not None
+    assert "logo" in app.builder.theme_options
+    assert "favicons" in app.builder.theme_options
+
+@pytest.mark.parametrize(
+    "zulip_url",
+    [
+        pytest.param(None, id="unset"),
+        pytest.param(False, id="falsy"),
+        pytest.param("https://custom.url.com", id="truthy"),
+    ]
+)
+def test_set_config_defaults_adds_icon_links(mocker, zulip_url: Optional[str | Literal[False]]):
+    """Test that set_config_defaults adds icon links."""
+    from conda_sphinx_theme import set_config_defaults
+
+    app = mocker.Mock()
+    app.builder = mocker.Mock()
+    app.builder.theme_options = theme_options = {}
+
+    if zulip_url is not None:
+        theme_options["zulip_url"] = zulip_url
+
+    set_config_defaults(app)
+
+    # Verify icon links were added
+    icon_links = app.builder.theme_options["icon_links"]
+    if zulip_url is False:
+        assert not icon_links
+    else:
+        assert len(icon_links) == 1
+        assert icon_links[0]["name"] == "Zulip"
+    if zulip_url:
+        assert icon_links[0]["url"] == zulip_url

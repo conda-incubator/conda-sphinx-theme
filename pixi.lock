@@ -6,6 +6,8 @@ environments:
     - url: https://conda.anaconda.org/conda-forge/label/ty_alpha/
     indexes:
     - https://pypi.org/simple
+    options:
+      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
@@ -267,6 +269,8 @@ environments:
     - url: https://conda.anaconda.org/conda-forge/label/ty_alpha/
     indexes:
     - https://pypi.org/simple
+    options:
+      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
@@ -603,6 +607,8 @@ environments:
     - url: https://conda.anaconda.org/conda-forge/label/ty_alpha/
     indexes:
     - https://pypi.org/simple
+    options:
+      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
@@ -898,6 +904,8 @@ environments:
     - url: https://conda.anaconda.org/conda-forge/label/ty_alpha/
     indexes:
     - https://pypi.org/simple
+    options:
+      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
@@ -1197,6 +1205,8 @@ environments:
     - url: https://conda.anaconda.org/conda-forge/label/ty_alpha/
     indexes:
     - https://pypi.org/simple
+    options:
+      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
@@ -1496,6 +1506,8 @@ environments:
     - url: https://conda.anaconda.org/conda-forge/label/ty_alpha/
     indexes:
     - https://pypi.org/simple
+    options:
+      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
@@ -1796,6 +1808,8 @@ environments:
     - url: https://conda.anaconda.org/conda-forge/label/ty_alpha/
     indexes:
     - https://pypi.org/simple
+    options:
+      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
@@ -3169,13 +3183,12 @@ packages:
   timestamp: 1733218222191
 - pypi: ./
   name: conda-sphinx-theme
-  version: 0.3.1.dev37+g60e040904.d20251027
-  sha256: d8403901f4e7123cf041ce6ec86060a1dd1f6606dbeec41775ed26bb8609af47
+  version: 0.4.1.dev2+g564279406
+  sha256: 98e239653d0919cdcf98b3333cc145fbf9f9d20d9507bd602e9ba4757a189e91
   requires_dist:
   - pydata-sphinx-theme>=0.15
   - sphinx-favicon
   requires_python: '>=3.9'
-  editable: true
 - conda: https://conda.anaconda.org/conda-forge/linux-64/coverage-7.10.4-py39heb7d2ae_0.conda
   sha256: c461bb1afa582d9e6b14e857bcdf938271ba34735db8e2c5ef131760250f5761
   md5: 3ecc156a987ea09c920564f1a2e03963
