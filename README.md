@@ -139,14 +139,13 @@ pixi run hooks-update  # Update hook versions
 
 ### Testing Multiple Python Versions
 
-The project supports Python 3.9-3.13 with version-specific environments:
+The project supports Python 3.11-3.14 with version-specific environments:
 
 ```bash
-pixi run --environment test-py39 test
-pixi run --environment test-py310 test
 pixi run --environment test-py311 test
 pixi run --environment test-py312 test
 pixi run --environment test-py313 test
+pixi run --environment test-py314 test
 ```
 
 [pydata-sphinx-theme]: https://pydata-sphinx-theme.readthedocs.io/en/stable/
