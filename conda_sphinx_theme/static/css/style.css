@@ -1,18 +1,80 @@
 /* rgb #11557c */
+
+/*
+ * Link hover colors (WCAG AA, >= 4.5:1 for text).
+ * Light mode needs a dark green to contrast with the white/light-gray
+ * backgrounds; dark mode needs a light green to contrast with the dark
+ * backgrounds. Contrast ratios (background / table surface):
+ *   light: #1b5e20 -> 7.87:1 on #ffffff, 7.15:1 on #f3f4f5
+ *   dark:  #90ee90 -> 10.45:1 on #222832, 9.26:1 on #29313d
+ */
 html[data-theme="light"] {
   --pst-color-primary: #348721;
   --pst-color-primary-highlight: #2f7a1e;
-  --pst-color-link-hover: var(--pst-color-link);
+  --pst-color-link-hover: #1b5e20;
+  --pst-color-table-row-hover-bg: #cfe8cc;
+
+  /* Replace the theme's purple "secondary" and magenta "accent" families. */
+  --pst-color-secondary: #1b5e20;
+  --pst-color-secondary-highlight: #14471a;
+  --pst-color-secondary-bg: #d4edcf;
+  --pst-color-secondary-text: #ffffff;
+  --pst-color-secondary-highlight-text: #ffffff;
+  --pst-color-accent: #1b5e20;
+  --pst-color-accent-bg: #d4edcf;
 }
 
 html[data-theme="dark"] {
   --pst-color-primary: #43b02a;
   --pst-color-primary-highlight: #3c9e26;
-  --pst-color-link-hover: var(--pst-color-primary);
+  --pst-color-link-hover: #90ee90;
+  --pst-color-table-row-hover-bg: #1f4d2b;
+
+  /* Replace the theme's purple "secondary" and magenta "accent" families. */
+  --pst-color-secondary: #90ee90;
+  --pst-color-secondary-highlight: #6fcf6f;
+  --pst-color-secondary-bg: #1f4d2b;
+  --pst-color-secondary-text: #14181e;
+  --pst-color-secondary-highlight-text: #14181e;
+  --pst-color-accent: #90ee90;
+  --pst-color-accent-bg: #1f4d2b;
 }
 
-:root {
---pst-color-link-hover: var(--pst-color-secondary);
+/*
+ * pydata-sphinx-theme pins the link color in several contexts to
+ * `--pst-color-link-higher-contrast` (e.g. `.table a`, `div.versionadded a`,
+ * `nav.contents a`). Those selectors tie with or beat the global `a:hover`
+ * rule (specificity 0,1,1) and are declared after it, so links in those
+ * contexts never change color on hover. Re-apply the hover color there with
+ * higher specificity.
+ */
+.table a:hover,
+.table a:visited:hover,
+div.deprecated a:hover,
+div.versionadded a:hover,
+div.versionchanged a:hover,
+div.versionremoved a:hover,
+aside.topic a:hover,
+div.topic a:hover,
+div.topic.contents a:hover,
+nav.contents a:hover,
+a:hover > code {
+  color: var(--pst-color-link-hover);
+}
+
+/*
+ * Table row hover highlight. The theme only applies
+ * `--pst-color-table-row-hover-bg` to pandas dataframe tables, and its zebra
+ * striping (`.table tbody tr:nth-child(...)`, specificity 0,2,2) would
+ * override a plain `tr:hover`, so match that specificity and come later.
+ * Contrast of text on the highlight (WCAG AA >= 4.5:1):
+ *   light: #cfe8cc -> 11.33:1 with #222832 text, 6.02:1 with #1b5e20 link
+ *   dark:  #1f4d2b -> 6.63:1 with #ced6dd text, 6.88:1 with #90ee90 link
+ */
+.table tbody tr:hover,
+.table tbody tr:nth-child(odd):hover,
+.table tbody tr:nth-child(2n):hover {
+  background-color: var(--pst-color-table-row-hover-bg);
 }
 
 .sidebar-cheatsheets, .sidebar-donate {

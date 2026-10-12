@@ -99,14 +99,14 @@ directory = "htmlcov"
 
 [tool.pixi.workspace]
 channels = ["conda-forge", "https://conda.anaconda.org/conda-forge/label/ty_alpha"]
-platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
+platforms = ["linux-64", "osx-64", "osx-arm64", "win-64", "linux-aarch64"]
 
 [tool.pixi.dependencies]
 # Shared base dependencies that work across all Python versions
 pytest = ">=8.0.0"
 pytest-cov = ">=6.0.0"
 pytest-mock = ">=3.10.0"
-docutils = ">=0.21.0"
+docutils = ">=0.21.0,<0.23"
 ruff = "*"
 ty = "*"
 prek = "*"
@@ -123,11 +123,8 @@ python = ">=3.13"
 sphinx-autobuild = "*"
 
 # Python version-specific features
-[tool.pixi.feature.py39.dependencies]
-python = "3.9.*"
-
-[tool.pixi.feature.py310.dependencies]
-python = "3.10.*"
+# [tool.pixi.feature.py310.dependencies]
+# python = "3.10.*"
 
 [tool.pixi.feature.py311.dependencies]
 python = "3.11.*"
@@ -138,14 +135,16 @@ python = "3.12.*"
 [tool.pixi.feature.py313.dependencies]
 python = "3.13.*"
 
+[tool.pixi.feature.py314.dependencies]
+python = "3.14.*"
+
 [tool.pixi.environments]
 default = ["dev"]
 docs = ["dev", "docs"]
-test-py39 = ["py39"]
-test-py310 = ["py310"]
 test-py311 = ["py311"]
 test-py312 = ["py312"]
 test-py313 = ["py313"]
+test-py314 = ["py314"]
 
 [tool.pixi.tasks]
 # Testing
