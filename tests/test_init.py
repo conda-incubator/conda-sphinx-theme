@@ -48,8 +48,9 @@ def test_setup_function(mocker):
     assert len(app.config.templates_path) == 1
     assert "_templates" in app.config.templates_path[0]
 
-    # Verify builder-inited event was connected
-    app.connect.assert_called_once_with("builder-inited", mocker.ANY)
+    # Verify events were connected
+    app.connect.assert_any_call("builder-inited", mocker.ANY)
+    app.connect.assert_any_call("html-collect-pages", mocker.ANY)
 
     # Verify return metadata
     assert "version" in result
@@ -69,7 +70,7 @@ def test_set_config_defaults_adds_zulip_icon(mocker):
     set_config_defaults(app)
 
     # Verify Zulip icon script was added
-    app.add_js_file.assert_called_once_with("js/zulip-icon.js")
+    app.add_js_file.assert_any_call("js/zulip-icon.js")
 
 
 def test_set_config_defaults_with_goatcounter(mocker):
@@ -87,8 +88,11 @@ def test_set_config_defaults_with_goatcounter(mocker):
     set_config_defaults(app)
 
     # Verify GoatCounter script was added with correct parameters
-    calls = [call for call in app.add_js_file.call_args_list
-             if len(call[0]) > 0 and call[0][0] == "js/count.js"]
+    calls = [
+        call
+        for call in app.add_js_file.call_args_list
+        if len(call[0]) > 0 and call[0][0] == "js/count.js"
+    ]
     assert len(calls) == 1
     assert calls[0][1]["data-goatcounter"] == "https://example.goatcounter.com/count"
     assert calls[0][1]["loading_method"] == "async"
@@ -107,8 +111,11 @@ def test_set_config_defaults_without_goatcounter(mocker):
     set_config_defaults(app)
 
     # Verify GoatCounter script was NOT added
-    calls = [call for call in app.add_js_file.call_args_list
-             if len(call[0]) > 0 and call[0][0] == "js/count.js"]
+    calls = [
+        call
+        for call in app.add_js_file.call_args_list
+        if len(call[0]) > 0 and call[0][0] == "js/count.js"
+    ]
     assert len(calls) == 0
 
 
@@ -218,15 +225,18 @@ def test_set_config_defaults_handles_none_theme_options(mocker):
     assert "logo" in app.builder.theme_options
     assert "favicons" in app.builder.theme_options
 
+
 @pytest.mark.parametrize(
     "zulip_url",
     [
         pytest.param(None, id="unset"),
         pytest.param(False, id="falsy"),
         pytest.param("https://custom.url.com", id="truthy"),
-    ]
+    ],
 )
-def test_set_config_defaults_adds_icon_links(mocker, zulip_url: Optional[str | Literal[False]]):
+def test_set_config_defaults_adds_icon_links(
+    mocker, zulip_url: Optional[str | Literal[False]]
+):
     """Test that set_config_defaults adds icon links."""
     from conda_sphinx_theme import set_config_defaults
 

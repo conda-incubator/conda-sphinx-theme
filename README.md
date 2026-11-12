@@ -26,6 +26,57 @@ line in your conf.py file
 html_theme = 'conda_sphinx_theme'
 ```
 
+## Navigation
+
+The navbar links to the other documentation sites in the conda ecosystem, and the
+theme ships the list. Entries marked `inline` render as navbar tabs; everything
+after them folds into a dropdown menu, and the current project is highlighted
+wherever it appears. `conda.org` always shows at the end of the navbar.
+
+The list lives in
+[`conda_sphinx_theme/projects.json`](conda_sphinx_theme/projects.json). To add,
+reorder, or promote a site, edit that file:
+
+```json
+[
+  {
+    "name": "conda",
+    "docs": "https://docs.conda.io/projects/conda/en/stable/",
+    "github": "https://github.com/conda/conda",
+    "package": "conda",
+    "channels": ["main", "conda-forge"],
+    "inline": true
+  }
+]
+```
+
+| Field | Required | Purpose |
+|---|---|---|
+| `name` | yes | Navbar label, also matches the Sphinx `project` value |
+| `docs` | yes | Documentation URL |
+| `github` | no | Source link on the projects page |
+| `package` | no | anaconda.org package name, defaults to `name`; only needed when they differ |
+| `channels` | no | Version badge channels, defaults to `["main", "conda-forge"]`; `[]` shows no badges, and channels a package is not published to render as "not found" |
+| `inline` | no | Render as a navbar tab instead of folding into the dropdown |
+
+`inline` only counts on leading entries: the first entry without it ends the run
+of tabs, and a stray marker after it is ignored with a warning.
+
+The navbar and the projects page are rendered from this list at build time, so an
+edit shows up on the next build, and immediately under `pixi run docs-live`
+(which watches the theme package). Consuming projects pick the list up with the
+theme version they pin.
+
+Long lists stay usable: the menu scrolls, and once JavaScript runs it also gets
+a filter box above the entries ("All projects" stays visible). Without
+JavaScript the filter is hidden and the plain list remains.
+
+The theme also generates a `/projects` page listing every entry in a table, with
+documentation and source links plus version badges for each configured channel,
+sorted alphabetically. Each badge is labelled with its channel name and links to
+the corresponding anaconda.org page. Set `projects_page = false` in `html_theme_options` to
+skip it, and set `projects` there to use a different list for one project.
+
 ## Version Anchors Extension
 
 The theme includes a `version_anchors` Sphinx extension that automatically creates anchors for version headings in changelog files. This makes it easy to link directly to specific versions in your changelog.

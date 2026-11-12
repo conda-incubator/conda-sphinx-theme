@@ -1,11 +1,56 @@
-<ul id="navbar-main-elements" class="navbar-nav">
-    <li class="nav-item {% if project == "conda" %}current active{% endif %}">
-        <a class="reference internal nav-link" href="https://docs.conda.io/projects/conda/">conda</a>
-    </li>
-    <li class="nav-item {% if project == "conda-build" %}current active{% endif %}">
-        <a class="reference internal nav-link" href="https://docs.conda.io/projects/conda-build">conda-build</a>
-    </li>
-    <li class="nav-item">
-        <a class="reference nav-external nav-link" href="https://conda.org">conda.org</a>
-    </li>
+{%- set total = theme_projects | length %}
+{%- set inline = theme_projects_inline | int %}
+{#- The mobile sidebar includes this template with a large
+    theme_header_links_before_dropdown sentinel; show the whole list there
+    instead of nesting a dropdown inside the drawer. -#}
+{%- set flat = (theme_header_links_before_dropdown | int) > total %}
+{%- if flat %}{%- set inline = total %}{%- endif %}
+{%- set folded = theme_projects[inline:] %}
+<ul id="navbar-main-elements" class="bd-navbar-elements navbar-nav">
+  {%- if flat and theme_projects_page %}
+  <li class="nav-item{% if conda_page == "projects" %} current active{% endif %}">
+    <a class="nav-link" href="{{ pathto("projects") }}">{{ _("All projects") }}</a>
+  </li>
+  {%- endif %}
+  {%- for entry in theme_projects[:inline] %}
+  {%- set current = entry.name == project %}
+  <li class="nav-item{% if current %} current active{% endif %}">
+    <a class="nav-link {{ "nav-internal" if current else "nav-external" }}"
+       href="{{ pathto(root_doc) if current else entry.docs }}">{{ entry.name }}</a>
+  </li>
+  {%- endfor %}
+  {%- if not flat and (folded or theme_projects_page) %}
+  {%- set dropdown_id = unique_html_id("conda-nav-projects") %}
+  <li class="nav-item dropdown{% if project in folded | map(attribute="name") %} current{% endif %}">
+    <button class="btn dropdown-toggle nav-item" type="button" data-bs-toggle="dropdown"
+            aria-expanded="false" aria-controls="{{ dropdown_id }}">
+      <i class="fa-solid fa-bars" aria-hidden="true"></i>
+      <span class="sr-only">{{ _("More") }}</span>
+    </button>
+    <ul id="{{ dropdown_id }}" class="dropdown-menu">
+      <li class="conda-projects-filter" hidden>
+        <input type="search" class="form-control form-control-sm" autocomplete="off"
+               placeholder="{{ _('Filter projects') }}"
+               aria-label="{{ _('Filter projects') }}">
+      </li>
+      {%- if theme_projects_page %}
+      <li{% if conda_page == "projects" %} class="current active"{% endif %}><a class="nav-link dropdown-item" href="{{ pathto("projects") }}">{{ _("All projects") }}</a></li>
+      <li><hr class="dropdown-divider"></li>
+      {%- endif %}
+      <li class="conda-projects-empty" hidden>
+        <span class="dropdown-item-text">{{ _("No projects match") }}</span>
+      </li>
+      {%- for entry in folded %}
+      {%- set current = entry.name == project %}
+      <li{% if current %} class="current active"{% endif %}>
+        <a class="nav-link dropdown-item {{ "nav-internal" if current else "nav-external" }}"
+           href="{{ pathto(root_doc) if current else entry.docs }}">{{ entry.name }}</a>
+      </li>
+      {%- endfor %}
+    </ul>
+  </li>
+  {%- endif %}
+  <li class="nav-item">
+    <a class="nav-link nav-external" href="https://conda.org">conda.org</a>
+  </li>
 </ul>

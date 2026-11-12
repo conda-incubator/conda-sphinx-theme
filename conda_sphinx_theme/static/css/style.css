@@ -178,6 +178,53 @@ a.navbar-brand > p.title {
     margin-left: 0.5em;
 }
 
+/* Breathing room between the logo and the first navbar link */
+.bd-header .navbar-header-items__center {
+    margin-left: 1rem;
+}
+
+/* Mark the projects dropdown when the current project is one of its entries */
+.navbar-nav > li.nav-item.current > .dropdown-toggle {
+    color: var(--pst-color-primary);
+}
+
+/* Right-align the conda.org link: let the navbar list span the header and push
+   its last entry over. Scoped to the header so the mobile sidebar list, which
+   reuses the same template, stays left-aligned. */
+.bd-header .navbar-header-items__center,
+.bd-header .navbar-header-items__center > .navbar-item,
+.bd-header #navbar-main-elements {
+    flex-grow: 1;
+}
+
+.bd-header #navbar-main-elements > .nav-item:last-child {
+    /* matches the header's own column gap, so it does not touch the icon links */
+    margin-left: auto;
+    margin-right: 1.12rem;
+}
+
+/* Keep the project menu inside the viewport and scrollable when it is long */
+.bd-header #navbar-main-elements .dropdown-menu {
+    max-height: calc(100vh - var(--pst-header-height) - 2rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+/* Filter bar for the project list, pinned to the top of the scrolling menu */
+.bd-header #navbar-main-elements .conda-projects-filter {
+    background-color: var(--bs-dropdown-bg);
+    padding: 0.5rem var(--bs-dropdown-item-padding-x) 0.5rem;
+    position: sticky;
+    /* cancel the menu's top padding so the bar sticks level with its edge */
+    top: calc(var(--bs-dropdown-padding-y) * -1);
+    z-index: 1;
+}
+
+/* `hidden` has to win over any display rule a list item picks up */
+.bd-header #navbar-main-elements .dropdown-menu li[hidden] {
+    display: none;
+}
+
 /** Bootstrap overrides **/
 
 .text-bg-primary {

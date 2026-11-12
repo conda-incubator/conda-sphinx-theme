@@ -5,7 +5,16 @@ except ImportError:  # pragma: no cover
     __version__ = "0.0.0+unknown"
     version_info = (0, 0, 0)
 
+import json
 from pathlib import Path
+
+from sphinx.util import logging
+
+logger = logging.getLogger(__name__)
+
+# theme.conf values arrive as strings, while html_theme_options can supply real
+# booleans; these are the spellings that mean False.
+FALSE_VALUES = frozenset({"false", "0", "no", "off"})
 
 
 def set_config_defaults(app):
@@ -35,8 +44,51 @@ def set_config_defaults(app):
             )
     theme["icon_links"] = [*icon_links, *(theme.get("icon_links") or [])]
 
+    # Default project list, unless the project supplied one
+    projects = theme.get("projects")
+    if projects is None or isinstance(projects, str):
+        # theme.conf declares this as an empty string, meaning "use the default"
+        projects = json.loads((Path(__file__).parent / "projects.json").read_text())
+        theme["projects"] = projects
+    for entry in projects:
+        if (
+            not isinstance(entry, dict)
+            or not entry.get("name")
+            or not entry.get("docs")
+        ):
+            raise ValueError(
+                f"conda-sphinx-theme: invalid project entry {entry!r}, "
+                "'name' and 'docs' are required"
+            )
+
+    # Number of leading entries rendered as navbar tabs; the rest fold into the
+    # navbar's dropdown menu.
+    inline = 0
+    unmarked = False
+    for entry in projects:
+        if not entry.get("inline"):
+            unmarked = True
+        elif unmarked:
+            logger.warning(
+                "conda-sphinx-theme: ignoring 'inline' on %r, it follows an "
+                "entry without 'inline'",
+                entry["name"],
+            )
+        else:
+            inline += 1
+    theme["projects_inline"] = inline
+
+    # theme.conf values arrive as strings; normalize so templates and the
+    # html-collect-pages hook agree
+    theme["projects_page"] = (
+        str(theme.get("projects_page", "true")).lower() not in FALSE_VALUES
+    )
+
     # Add custom Zulip icon
     app.add_js_file("js/zulip-icon.js")
+
+    # Filter bar for the project list in the navbar
+    app.add_js_file("js/projects-filter.js")
 
     # Add GoatCounter script
     if goatcounter_url := theme.get("goatcounter_url"):
@@ -62,6 +114,24 @@ def set_config_defaults(app):
     app.builder.theme_options = theme
 
 
+def get_projects_page(app):
+    """Generate a page listing every documentation site in the project list."""
+    builder = app.builder
+    if not builder.theme_options.get("projects_page"):
+        return
+    if "projects" in builder.env.found_docs:
+        logger.info(
+            "conda-sphinx-theme: not generating a projects page, a document "
+            "named 'projects' already exists"
+        )
+        return
+    yield (
+        "projects",
+        {"conda_page": "projects", "title": "Projects", "parents": []},
+        "projects.html",
+    )
+
+
 # For more details, see:
 # https://www.sphinx-doc.org/en/master/development/theming.html#distribute-your-theme-as-a-python-package
 def setup(app):
@@ -70,4 +140,5 @@ def setup(app):
     app.config.templates_path.append(str(here / "_templates"))
     app.add_html_theme("conda_sphinx_theme", str(here))
     app.connect("builder-inited", set_config_defaults)
+    app.connect("html-collect-pages", get_projects_page)
     return {"version": __version__, "parallel_read_safe": True}

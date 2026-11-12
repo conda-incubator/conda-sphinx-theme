@@ -46,6 +46,7 @@ version_file = "conda_sphinx_theme/_version.py"
 conda_sphinx_theme = [
     "theme.conf",
     "*.html",
+    "projects.json",
     "static/css/*.css",
     "static/js/*.js",
     "static/fonts/*.*",
@@ -164,7 +165,9 @@ ci = { depends-on = ["lint", "type-check", "test"] }
 [tool.pixi.feature.docs.tasks]
 # Documentation
 docs-build = { cmd = "sphinx-build -b dirhtml docs docs/_build/dirhtml" }
-docs-live = { cmd = "sphinx-autobuild docs docs/_build/html --open-browser" }
+# `-a` rewrites every page so theme data changes (projects.json) show up;
+# `--watch conda_sphinx_theme` triggers a rebuild when the theme package changes
+docs-live = { cmd = "sphinx-autobuild docs docs/_build/html --open-browser --watch conda_sphinx_theme -a" }
 docs-clean = "rm -rf docs/_build"
 
 [tool.pixi.tasks.clean]
