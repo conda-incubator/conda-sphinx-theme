@@ -1,0 +1,197 @@
+[
+  {
+    "name": "conda",
+    "docs": "https://docs.conda.io/projects/conda/",
+    "github": "https://github.com/conda/conda"
+  },
+  {
+    "name": "conda-build",
+    "docs": "https://docs.conda.io/projects/conda-build/",
+    "github": "https://github.com/conda/conda-build"
+  },
+  {
+    "name": "conda-workspaces",
+    "docs": "https://conda-incubator.github.io/conda-workspaces/",
+    "github": "https://github.com/conda-incubator/conda-workspaces"
+  },
+  {
+    "name": "conda-auth",
+    "docs": "https://conda-incubator.github.io/conda-auth/",
+    "github": "https://github.com/conda-incubator/conda-auth"
+  },
+  {
+    "name": "conda-completion",
+    "docs": "https://conda-incubator.github.io/conda-completion/",
+    "github": "https://github.com/conda-incubator/conda-completion"
+  },
+  {
+    "name": "conda-exec",
+    "docs": "https://conda-incubator.github.io/conda-exec/",
+    "github": "https://github.com/conda-incubator/conda-exec"
+  },
+  {
+    "name": "conda-global",
+    "docs": "https://conda-incubator.github.io/conda-global/",
+    "github": "https://github.com/conda-incubator/conda-global"
+  },
+  {
+    "name": "conda-index",
+    "docs": "https://conda.github.io/conda-index/",
+    "github": "https://github.com/conda/conda-index"
+  },
+  {
+    "name": "conda-libmamba-solver",
+    "docs": "https://conda.github.io/conda-libmamba-solver/",
+    "github": "https://github.com/conda/conda-libmamba-solver"
+  },
+  {
+    "name": "conda-lock",
+    "docs": "https://conda.github.io/conda-lock/",
+    "github": "https://github.com/conda/conda-lock"
+  },
+  {
+    "name": "conda-lockfiles",
+    "docs": "https://conda.github.io/conda-lockfiles/",
+    "github": "https://github.com/conda/conda-lockfiles"
+  },
+  {
+    "name": "conda-pack",
+    "docs": "https://conda.github.io/conda-pack/",
+    "github": "https://github.com/conda/conda-pack"
+  },
+  {
+    "name": "conda-package-handling",
+    "docs": "https://conda.github.io/conda-package-handling/",
+    "github": "https://github.com/conda/conda-package-handling"
+  },
+  {
+    "name": "conda-package-streaming",
+    "docs": "https://conda.github.io/conda-package-streaming/",
+    "github": "https://github.com/conda/conda-package-streaming"
+  },
+  {
+    "name": "conda-plugins",
+    "docs": "https://conda-incubator.github.io/conda-plugins/",
+    "github": "https://github.com/conda-incubator/conda-plugins"
+  },
+  {
+    "name": "conda-press",
+    "docs": "https://conda-incubator.github.io/conda-press-docs/",
+    "github": "https://github.com/conda-incubator/conda-press"
+  },
+  {
+    "name": "conda-project",
+    "docs": "https://conda-incubator.github.io/conda-project/",
+    "github": "https://github.com/conda-incubator/conda-project"
+  },
+  {
+    "name": "conda-pycosat-solver",
+    "docs": "https://conda.github.io/conda-pycosat-solver/",
+    "github": "https://github.com/conda/conda-pycosat-solver"
+  },
+  {
+    "name": "conda-pypi",
+    "docs": "https://conda.github.io/conda-pypi/",
+    "github": "https://github.com/conda/conda-pypi"
+  },
+  {
+    "name": "conda-rattler-solver",
+    "docs": "https://conda.github.io/conda-rattler-solver/",
+    "github": "https://github.com/conda/conda-rattler-solver"
+  },
+  {
+    "name": "conda-recipe-manager",
+    "docs": "https://conda.github.io/conda-recipe-manager/",
+    "github": "https://github.com/conda/conda-recipe-manager"
+  },
+  {
+    "name": "conda-sboms",
+    "docs": "https://conda-incubator.github.io/conda-sboms/",
+    "github": "https://github.com/conda-incubator/conda-sboms"
+  },
+  {
+    "name": "conda-self",
+    "docs": "https://conda.github.io/conda-self/",
+    "github": "https://github.com/conda/conda-self"
+  },
+  {
+    "name": "conda-ship",
+    "docs": "https://conda-incubator.github.io/conda-ship/",
+    "github": "https://github.com/conda-incubator/conda-ship"
+  },
+  {
+    "name": "conda-sigstore",
+    "docs": "https://conda-incubator.github.io/conda-sigstore/",
+    "github": "https://github.com/conda-incubator/conda-sigstore"
+  },
+  {
+    "name": "conda-spawn",
+    "docs": "https://conda.github.io/conda-spawn/",
+    "github": "https://github.com/conda/conda-spawn"
+  },
+  {
+    "name": "conda-sphinx-theme",
+    "docs": "https://conda-incubator.github.io/conda-sphinx-theme/",
+    "github": "https://github.com/conda-incubator/conda-sphinx-theme"
+  },
+  {
+    "name": "conda-store",
+    "docs": "https://conda.store/",
+    "github": "https://github.com/conda-incubator/conda-store"
+  },
+  {
+    "name": "conda-subchannel",
+    "docs": "https://conda-incubator.github.io/conda-subchannel/",
+    "github": "https://github.com/conda-incubator/conda-subchannel"
+  },
+  {
+    "name": "conda-tui",
+    "docs": "https://conda-incubator.github.io/conda-tui/",
+    "github": "https://github.com/conda-incubator/conda-tui"
+  },
+  {
+    "name": "condastats",
+    "docs": "https://condastats.readthedocs.io/",
+    "github": "https://github.com/conda-incubator/condastats"
+  },
+  {
+    "name": "constructor",
+    "docs": "https://conda.github.io/constructor/",
+    "github": "https://github.com/conda/constructor"
+  },
+  {
+    "name": "grayskull",
+    "docs": "https://conda.github.io/grayskull/",
+    "github": "https://github.com/conda/grayskull"
+  },
+  {
+    "name": "menuinst",
+    "docs": "https://conda.github.io/menuinst/",
+    "github": "https://github.com/conda/menuinst"
+  },
+  {
+    "name": "pytest-conda-solvers",
+    "docs": "https://conda.github.io/pytest-conda-solvers/",
+    "github": "https://github.com/conda-incubator/pytest-conda-solvers"
+  },
+  {
+    "name": "rattler",
+    "docs": "https://conda.github.io/rattler/",
+    "github": "https://github.com/conda/rattler"
+  },
+  {
+    "name": "schemas",
+    "docs": "https://schemas.conda.org/",
+    "github": "https://github.com/conda/schemas"
+  },
+  {
+    "name": "setup-miniconda",
+    "docs": "https://conda-incubator.github.io/setup-miniconda/",
+    "github": "https://github.com/conda-incubator/setup-miniconda"
+  },
+  {
+    "name": "unidep",
+    "docs": "https://unidep.readthedocs.io/",
+    "github": "https://github.com/conda-incubator/unidep"
+  }
+]

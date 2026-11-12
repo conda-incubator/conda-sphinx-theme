@@ -49,6 +49,12 @@ html_theme_options = {
     "show_prev_next": False,
     "github_url": "https://github.com/conda-incubator/conda-sphinx-theme",
     "goatcounter_url": "",  # Disabled by default; put your own GoatCounter URL here to enable
+    # Documentation sites listed in the navbar and on the generated "Projects"
+    # page. Omit this to use the list shipped with the theme; see
+    # https://github.com/conda-incubator/conda-sphinx-theme/blob/main/conda_sphinx_theme/projects.json
+    # "projects": [],
+    # Set to False to skip generating the "Projects" page.
+    # "projects_page": False,
 }
 
 html_context = {

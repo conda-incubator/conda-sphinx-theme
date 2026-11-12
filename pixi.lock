@@ -8042,7 +8042,7 @@ packages:
   requires_dist:
   - pydata-sphinx-theme>=0.15
   - sphinx-favicon
-  requires_python: '>=3.9'
+  requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/01/f9/575c8d760eae1fc99651b7cc5efd96ad5379ca4d6b53750b0fb4fe983f34/imagesize-2.0.1-py3-none-any.whl
   name: imagesize
   version: 2.0.1

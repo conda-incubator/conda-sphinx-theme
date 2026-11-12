@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{#- This page is not part of any toctree, so drop the navigation sidebar and
+    let the table use the full width. -#}
+{% set sidebars = [] %}
+
+{% block body %}
+<h1>{{ _("Projects") }}</h1>
+<p>Documentation, source code and release channels for projects in the conda
+ecosystem.</p>
+<div class="table-responsive">
+<table class="table table-hover align-middle">
+  <thead>
+    <tr>
+      <th scope="col">{{ _("Project") }}</th>
+      <th scope="col">{{ _("Links") }}</th>
+      <th scope="col">{{ _("Releases") }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%- for entry in theme_projects | sort(attribute="name", case_sensitive=false) %}
+    {%- set current = entry.name == project %}
+    {%- set pkg = entry.package or entry.name %}
+    <tr{% if current %} class="table-active"{% endif %}>
+      <th scope="row">
+        <a href="{{ pathto(root_doc) if current else entry.docs }}">{{ entry.name }}</a>
+        {%- if current %} <span class="badge text-bg-secondary">{{ _("this site") }}</span>{% endif %}
+      </th>
+      <td>
+        <span class="d-inline-flex gap-2">
+          <a href="{{ entry.docs }}">
+            <i class="fa-solid fa-book" aria-hidden="true"></i>
+            <span class="sr-only">{{ entry.name }} {{ _("documentation") }}</span>
+          </a>
+          {%- if entry.github %}
+          <a href="{{ entry.github }}">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            <span class="sr-only">{{ entry.name }} {{ _("on GitHub") }}</span>
+          </a>
+          {%- endif %}
+        </span>
+      </td>
+      <td>
+        {%- for channel in (entry.channels if entry.channels is defined else ["main", "conda-forge"]) %}
+        <a href="https://anaconda.org/{{ channel }}/{{ pkg }}"
+           title="{{ pkg }} {{ _("on the") }} {{ channel }} {{ _("channel") }}">
+          <img src="https://img.shields.io/conda/vn/{{ channel }}/{{ pkg }}.svg"
+               alt="{{ pkg }} {{ _("version on") }} {{ channel }}" loading="lazy" height="20">
+        </a>
+        {%- endfor %}
+      </td>
+    </tr>
+    {%- endfor %}
+  </tbody>
+</table>
+</div>
+<p class="text-small">Versions are the latest published on
+<a href="https://anaconda.org">anaconda.org</a>.</p>
+{% endblock %}
