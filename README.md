@@ -29,13 +29,12 @@ html_theme = 'conda_sphinx_theme'
 ## Navigation
 
 The navbar links to the other documentation sites in the conda ecosystem, and the
-theme ships the list. Entries marked `inline` render as navbar tabs; everything
-after them folds into a dropdown menu, and the current project is highlighted
-wherever it appears. `conda.org` always shows at the end of the navbar.
+theme ships the list. The site being viewed leads the navbar, every other entry
+folds into a dropdown menu, and `conda.org` always shows at the end.
 
 The list lives in
-[`conda_sphinx_theme/projects.json`](conda_sphinx_theme/projects.json). To add,
-reorder, or promote a site, edit that file:
+[`conda_sphinx_theme/projects.json`](conda_sphinx_theme/projects.json). To add or
+reorder a site, edit that file:
 
 ```json
 [
@@ -44,8 +43,7 @@ reorder, or promote a site, edit that file:
     "docs": "https://docs.conda.io/projects/conda/en/stable/",
     "github": "https://github.com/conda/conda",
     "package": "conda",
-    "channels": ["main", "conda-forge"],
-    "inline": true
+    "channels": ["main", "conda-forge"]
   }
 ]
 ```
@@ -57,10 +55,13 @@ reorder, or promote a site, edit that file:
 | `github` | no | Source link on the projects page |
 | `package` | no | anaconda.org package name, defaults to `name`; only needed when they differ |
 | `channels` | no | Version badge channels, defaults to `["main", "conda-forge"]`; `[]` shows no badges, and channels a package is not published to render as "not found" |
-| `inline` | no | Render as a navbar tab instead of folding into the dropdown |
 
-`inline` only counts on leading entries: the first entry without it ends the run
-of tabs, and a stray marker after it is ignored with a warning.
+The site being viewed always leads the links: an entry whose name matches the
+Sphinx `project` value - with spaces and underscores read as dashes, so
+`Conda Sphinx Theme` matches `conda-sphinx-theme` - renders first as the current
+tab and links to the docs root, keeping versioned and local builds on-site. It is
+not repeated in the menu. A project with no matching entry gets a tab of its own
+under its `project` name.
 
 The navbar and the projects page are rendered from this list at build time, so an
 edit shows up on the next build, and immediately under `pixi run docs-live`

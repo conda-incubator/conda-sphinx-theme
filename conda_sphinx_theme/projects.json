@@ -2,20 +2,17 @@
   {
     "name": "conda",
     "docs": "https://docs.conda.io/projects/conda/",
-    "github": "https://github.com/conda/conda",
-    "inline": true
+    "github": "https://github.com/conda/conda"
   },
   {
     "name": "conda-build",
     "docs": "https://docs.conda.io/projects/conda-build/",
-    "github": "https://github.com/conda/conda-build",
-    "inline": true
+    "github": "https://github.com/conda/conda-build"
   },
   {
     "name": "conda-workspaces",
     "docs": "https://conda-incubator.github.io/conda-workspaces/",
-    "github": "https://github.com/conda-incubator/conda-workspaces",
-    "inline": true
+    "github": "https://github.com/conda-incubator/conda-workspaces"
   },
   {
     "name": "conda-auth",

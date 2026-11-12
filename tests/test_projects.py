@@ -5,7 +5,6 @@ Tests for the project list and the generated projects page.
 from __future__ import annotations
 
 import json
-import logging
 
 import pytest
 
@@ -25,24 +24,16 @@ def make_app_with_builder(mocker, theme_options=None, found_docs=()):
 
 
 def test_projects_shipped_list(mocker):
-    """The shipped list is valid and its markers drive the navbar split."""
+    """The shipped list is valid."""
     from conda_sphinx_theme import set_config_defaults
 
     app = make_app(mocker)
     set_config_defaults(app)
 
-    theme = app.builder.theme_options
-    projects = theme["projects"]
+    projects = app.builder.theme_options["projects"]
     assert projects
     assert all(entry.get("name") and entry.get("docs") for entry in projects)
     assert len({entry["name"] for entry in projects}) == len(projects)
-
-    # The inline entries are the leading run: at least one tab, and the marker
-    # stops at the first unmarked entry.
-    inline = theme["projects_inline"]
-    assert inline > 0
-    assert all(entry.get("inline") for entry in projects[:inline])
-    assert not any(entry.get("inline") for entry in projects[inline:])
 
 
 def test_projects_json_is_packaged():
@@ -96,77 +87,11 @@ def test_projects_override_replaces_default(mocker):
     """A project can supply its own list, even an empty one."""
     from conda_sphinx_theme import set_config_defaults
 
-    custom = [{"name": "myproject", "docs": "https://example.com", "inline": True}]
+    custom = [{"name": "myproject", "docs": "https://example.com"}]
     app = make_app(mocker, {"projects": custom})
     set_config_defaults(app)
 
     assert app.builder.theme_options["projects"] == custom
-    assert app.builder.theme_options["projects_inline"] == 1
-
-
-@pytest.mark.parametrize(
-    "projects,expected",
-    [
-        pytest.param(
-            [
-                {"name": "a", "docs": "https://a.example"},
-                {"name": "b", "docs": "https://b.example"},
-            ],
-            0,
-            id="no-markers",
-        ),
-        pytest.param(
-            [
-                {"name": "a", "docs": "https://a.example", "inline": True},
-                {"name": "b", "docs": "https://b.example"},
-            ],
-            1,
-            id="one-marker",
-        ),
-        pytest.param(
-            [
-                {"name": "a", "docs": "https://a.example", "inline": True},
-                {"name": "b", "docs": "https://b.example", "inline": True},
-            ],
-            2,
-            id="all-markers",
-        ),
-        pytest.param(
-            [
-                {"name": "a", "docs": "https://a.example", "inline": True},
-                {"name": "b", "docs": "https://b.example"},
-                {"name": "c", "docs": "https://c.example", "inline": True},
-            ],
-            1,
-            id="stray-marker",
-        ),
-    ],
-)
-def test_projects_inline_derivation(mocker, projects, expected):
-    """The navbar split is the run of leading entries marked inline."""
-    from conda_sphinx_theme import set_config_defaults
-
-    app = make_app(mocker, {"projects": projects})
-    set_config_defaults(app)
-
-    assert app.builder.theme_options["projects_inline"] == expected
-
-
-def test_projects_stray_marker_warns(mocker, caplog):
-    """A marker after a gap is ignored with a warning naming the entry."""
-    from conda_sphinx_theme import set_config_defaults
-
-    projects = [
-        {"name": "a", "docs": "https://a.example", "inline": True},
-        {"name": "b", "docs": "https://b.example"},
-        {"name": "c", "docs": "https://c.example", "inline": True},
-    ]
-    app = make_app(mocker, {"projects": projects})
-
-    with caplog.at_level(logging.WARNING, logger="conda_sphinx_theme"):
-        set_config_defaults(app)
-
-    assert "'c'" in caplog.text or "c" in caplog.text
 
 
 @pytest.mark.parametrize(

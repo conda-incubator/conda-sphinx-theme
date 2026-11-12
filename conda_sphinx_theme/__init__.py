@@ -61,23 +61,6 @@ def set_config_defaults(app):
                 "'name' and 'docs' are required"
             )
 
-    # Number of leading entries rendered as navbar tabs; the rest fold into the
-    # navbar's dropdown menu.
-    inline = 0
-    unmarked = False
-    for entry in projects:
-        if not entry.get("inline"):
-            unmarked = True
-        elif unmarked:
-            logger.warning(
-                "conda-sphinx-theme: ignoring 'inline' on %r, it follows an "
-                "entry without 'inline'",
-                entry["name"],
-            )
-        else:
-            inline += 1
-    theme["projects_inline"] = inline
-
     # theme.conf values arrive as strings; normalize so templates and the
     # html-collect-pages hook agree
     theme["projects_page"] = (
